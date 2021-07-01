@@ -396,3 +396,13 @@ Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
 InspectionId | Yes | Number | 1 | The ID of the inspection to retrieve questions from.
 
+### Query Parameters
+
+Parameter | Required | Type | Example | Description
+--------- | ------- | ---- | ------- | -----------
+conducted_from | No | Unix time | 1585589759 | The date from which to search for answered questions.
+conducted_to | No | Unix time | 1630185200 | The date to which to search for answered questions.
+title | No | Text | archives | A string of text to try and find in the question titles.
+response | No | Text | No | A string of text to try and find in the question response.
+negative | No | Boolean | true | Toggle filtering for negatively answered questions.
+
