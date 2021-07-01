@@ -5,30 +5,10 @@ Tip — use these endpoints to help you filter resources!
 
 ## Get All Users
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+curl --request GET \
+  --url 'http://public-api.lumiformdev.com/api/v1/users' \
+  --header 'Authorization: Bearer [your token here]'
 ```
 
 > The above command returns JSON structured like this:
@@ -73,30 +53,10 @@ This endpoint retrieves all users of your organization.
 
 ## Get All Sites
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+curl --request GET \
+  --url 'http://public-api.lumiformdev.com/api/v1/sites' \
+  --header 'Authorization: Bearer [your token here]'
 ```
 
 > The above command returns JSON structured like this:

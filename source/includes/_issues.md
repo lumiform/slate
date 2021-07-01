@@ -2,30 +2,10 @@
 
 ## Get All Issues
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+curl --request GET \
+  --url 'http://public-api.lumiformdev.com/api/v1/issues' \
+  --header 'Authorization: Bearer [your token here]'
 ```
 
 > The above command returns JSON structured like this:
@@ -162,30 +142,10 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 
 ## Get a Specific Issue
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+curl --request GET \
+  --url 'http://public-api.lumiformdev.com/api/v1/issues/1' \
+  --header 'Authorization: Bearer [your token here]'
 ```
 
 > The above command returns JSON structured like this:

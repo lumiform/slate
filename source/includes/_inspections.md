@@ -2,30 +2,11 @@
 
 ## Get All Inspections
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+curl --request GET \
+  --url 'http://public-api.lumiformdev.com/api/v1/inspections' \
+  --header 'Authorization: Bearer [your token here]'
 ```
 
 > The above command returns JSON structured like this:
@@ -184,30 +165,10 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 
 ## Get a Specific Inspection
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+curl --request GET \
+  --url 'http://public-api.lumiformdev.com/api/v1/inspections/1' \
+  --header 'Authorization: Bearer [your token here]'
 ```
 
 > The above command returns JSON structured like this:
@@ -261,31 +222,10 @@ InspectionId | Yes | Number | 1 | The ID of the inspection to retrieve.
 
 ## Get Questions of an Inspection
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+curl --request GET \
+  --url 'http://public-api.lumiformdev.com/api/v1/inspections/1/questions' \
+  --header 'Authorization: Bearer [your token here]'
 ```
 
 > The above command returns JSON structured like this:
