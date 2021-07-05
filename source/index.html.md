@@ -67,7 +67,7 @@ Lumiform uses API keys to allow access to the API. Once you obtain your API key 
 4. You should now receive your API key in the `access_token` field in the response!
 
 <aside class="notice">
-Take not of the token expiration timer by checking the `expires_in` field.
+Take note of the token expiration timer by checking the `expires_in` field.
 </aside>
 
 Lumiform expects for the `access_token` to be included in all API requests to the server in a header that looks like the following:
