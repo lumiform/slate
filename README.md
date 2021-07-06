@@ -23,6 +23,9 @@ After pushing your changes to the `main` branch, simply run ` ./deploy.sh`
 
 This will build and push the static assets to the `gh-pages` branch, which GitHub uses to host the documentation.
 
+Finally, in the repository, head over to `Settings` > `Pages` and in the "Custom Domain" field add the following URL:
+`developer.lumiformapp.com`. For now, this must be done manually,
+
 Support & Troubleshooting
 ----------
 Check the [original Slate documentation](https://slatedocs.github.io/slate) or ping a member of the Web development team.
