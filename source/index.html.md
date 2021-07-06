@@ -5,7 +5,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='#'>Go to API Management Page</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -22,7 +22,7 @@ code_clipboard: true
 # Introduction
 
 Welcome to the Lumiform Public API documentation! You can use our API to get your organization's Inspections, Questions and Issues.
-Lists of inspections, questions and issues are paginated. Paginated responses also have a `meta` and a `links` property 
+Lists of Inspections and Issues are paginated. Paginated responses also have a `meta` and a `links` property 
 useful for navigation - or even for helping you build a navigation UI if you desire!
  
 You can view cURL request examples in the dark area to the right, as well as examples of the responses you should expect to get.
@@ -59,11 +59,12 @@ curl "[api_endpoint_here]" \
 
 > Make sure to replace `yourtoken` with the token you got from the previous response.
 
-Lumiform uses API keys to allow access to the API. Once you obtain your API key and secret from us you can get your API token by following these steps:
+Lumiform uses API keys to allow access to the API. Your organization can obtain an API key and secret by visiting the [API management page](https://github.com/slatedocs/slate).
+Once you have obtained them, you can get your API key by following these steps:
 
 1. Concatenate your API key and API secret with a colon like so: `apikey:apisecret`
 2. Generate a base64 encoded token from your key and secret concatenated string. You can use [this website](https://www.base64encode.org/) for example.
-3. Make a request to our OAuth 2.0 Token endpoint using Basic Authorization and your base64 token as the key, as shown in the code example.
+3. Make a request to our OAuth 2.0 Token endpoint using Basic Authorization, and your base64 token as the key, as shown in the code example.
 4. You should now receive your API key in the `access_token` field in the response!
 
 <aside class="notice">
