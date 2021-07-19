@@ -22,6 +22,7 @@ curl --request GET \
         "title": "Temple of Coruscant"
       },
       "resolved_at": 1624914800,
+      "resolved_by": null,
       "created_at": 1598649200,
       "assignees": [
         {
@@ -49,6 +50,7 @@ curl --request GET \
         "title": "Temple of Coruscant"
       },
       "resolved_at": 1624914800,
+      "resolved_by": null,
       "created_at": 1598649200,
       "assignees": [
         {
@@ -161,6 +163,7 @@ curl --request GET \
       "title": "Temple of Coruscant"
     },
     "resolved_at": 1624914800,
+    "resolved_by": null,
     "created_at": 1598649200,
     "assignees": [
       {
