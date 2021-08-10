@@ -355,7 +355,7 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Go to API Management Page</a></li>
+            <li><a href='https://admin.lumiformapp.com/public-api'>Go to API Management Page</a></li>
             <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -372,7 +372,7 @@ useful for navigation - or even for helping you build a navigation UI if you des
 <blockquote>
 <p>To obtain your API Bearer token, use this code:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl GET <span class="s1">'http://public-api.lumiformdev.com/api/v1/oauth2/token'</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl GET <span class="s1">'https://public-api.lumiform.com/api/v1/oauth2/token'</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s1">'Authorization: Basic yourbase64token'</span>
 </code></pre></div>
 <blockquote>
@@ -398,34 +398,36 @@ curl <span class="s2">"[api_endpoint_here]"</span> <span class="se">\</span>
 <p>Make sure to replace <code>yourtoken</code> with the token you got from the previous response.</p>
 </blockquote>
 
-<p>Lumiform uses API keys to allow access to the API. Your organization can obtain an API key and secret by visiting the <a href="https://github.com/slatedocs/slate">API management page</a>.
+<p>Lumiform uses API keys to allow access to the API. Your organization can obtain an API key and secret by visiting the <a href="https://admin.lumiformapp.com/public-api">API management page</a>.
 Once you have obtained them, you can get your API key by following these steps:</p>
 
 <ol>
 <li>Concatenate your API key and API secret with a colon like so: <code>apikey:apisecret</code></li>
 <li>Generate a base64 encoded token from your key and secret concatenated string. You can use <a href="https://www.base64encode.org/">this website</a> for example.</li>
 <li>Make a request to our OAuth 2.0 Token endpoint using Basic Authorization, and your base64 token as the key, as shown in the code example.</li>
-<li>You should now receive your API key in the <code>access_token</code> field in the response!</li>
+<li>You should now receive your bearer token in the <code>access_token</code> field which you can use for authorization!</li>
 </ol>
 
 <aside class="notice">
 Take note of the token expiration timer by checking the `expires_in` field.
 </aside>
 
-<p>Lumiform expects for the <code>access_token</code> to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Lumiform expects your <code>access_token</code> bearer token to be included in the header of all API requests you make:</p>
 
 <p><code>Authorization: Bearer [your token here]</code></p>
 
 <aside class="notice">
-You must replace <code>[your token here]</code> with your organization's API key.
+You must replace <code>[your token here]</code> with your organization's access token.
 </aside>
 <h1 id='filters'>Filters</h1>
 <aside class="success">
 Tip — use these endpoints to help you filter resources!
 </aside>
 <h2 id='get-all-users'>Get All Users</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
-  <span class="nt">--url</span> <span class="s1">'http://public-api.lumiformdev.com/api/v1/users'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiform.com/api/v1/users'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -462,10 +464,12 @@ Tip — use these endpoints to help you filter resources!
 </span></code></pre></div>
 <p>This endpoint retrieves all users of your organization.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://public-api.lumiformdev.com/api/v1/filters/users</code></p>
+<p><code>GET https://public-api.lumiform.com/api/v1/filters/users</code></p>
 <h2 id='get-all-sites'>Get All Sites</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
-  <span class="nt">--url</span> <span class="s1">'http://public-api.lumiformdev.com/api/v1/sites'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiform.com/api/v1/sites'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -485,10 +489,12 @@ Tip — use these endpoints to help you filter resources!
 </span></code></pre></div>
 <p>This endpoint retrieves all sites of your organization.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://public-api.lumiformdev.com/api/v1/filters/sites</code></p>
+<p><code>GET https://public-api.lumiform.com/api/v1/filters/sites</code></p>
 <h1 id='inspections'>Inspections</h1><h2 id='get-all-inspections'>Get All Inspections</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
-  <span class="nt">--url</span> <span class="s1">'http://public-api.lumiformdev.com/api/v1/inspections'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiform.com/api/v1/inspections'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -581,10 +587,10 @@ Tip — use these endpoints to help you filter resources!
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections?page=1"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections?page=2"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections?page=2"</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections?page=2"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -597,22 +603,22 @@ Tip — use these endpoints to help you filter resources!
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections?page=1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections?page=1"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections?page=2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections?page=2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Next &amp;raquo;"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
@@ -621,7 +627,7 @@ Tip — use these endpoints to help you filter resources!
 </span></code></pre></div>
 <p>This endpoint retrieves all of your inspections.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://public-api.lumiformdev.com/api/v1/inspections</code></p>
+<p><code>GET https://public-api.lumiform.com/api/v1/inspections</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -708,8 +714,10 @@ Tip — use these endpoints to help you filter resources!
 Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your search to a certain time period!
 </aside>
 <h2 id='get-a-specific-inspection'>Get a Specific Inspection</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
-  <span class="nt">--url</span> <span class="s1">'http://public-api.lumiformdev.com/api/v1/inspections/1'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiform.com/api/v1/inspections/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -749,7 +757,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 </span></code></pre></div>
 <p>This endpoint retrieves a specific inspection.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://public-api.lumiformdev.com/api/v1/inspections/&lt;InspectionId&gt;</code></p>
+<p><code>GET https://public-api.lumiform.com/api/v1/inspections/&lt;InspectionId&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -769,8 +777,10 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 </tr>
 </tbody></table>
 <h2 id='get-questions-of-an-inspection'>Get Questions of an Inspection</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
-  <span class="nt">--url</span> <span class="s1">'http://public-api.lumiformdev.com/api/v1/inspections/1/questions'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiform.com/api/v1/inspections/1/questions'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -830,10 +840,10 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=1"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections/1/questions?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections/1/questions?page=2"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=2"</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections/1/questions?page=2"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -846,22 +856,22 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections/1/questions?page=1"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections/1/questions?page=2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections/1/questions?page=2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Next »"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/inspections/1/questions"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/inspections/1/questions"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
@@ -870,7 +880,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 </span></code></pre></div>
 <p>This endpoint retrieves questions of a specific inspection.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>GET http://public-api.lumiformdev.com/api/v1/inspections/&lt;InspectionId&gt;/questions</code></p>
+<p><code>GET https://public-api.lumiform.com/api/v1/inspections/&lt;InspectionId&gt;/questions</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -936,8 +946,10 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 </tr>
 </tbody></table>
 <h1 id='issues'>Issues</h1><h2 id='get-all-issues'>Get All Issues</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
-  <span class="nt">--url</span> <span class="s1">'http://public-api.lumiformdev.com/api/v1/issues'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiform.com/api/v1/issues'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1002,10 +1014,10 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/issues?page=1"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/issues?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/issues?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/issues?page=2"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/issues?page=2"</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/issues?page=2"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -1018,22 +1030,22 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/issues?page=1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/issues?page=1"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/issues?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/issues?page=2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/issues?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/issues?page=2"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Next &amp;raquo;"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://public-api.lumiformdev.com/api/v1/issues"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiform.com/api/v1/issues"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
     </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
@@ -1042,7 +1054,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 </span></code></pre></div>
 <p>This endpoint retrieves all of your issues.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://public-api.lumiformdev.com/api/v1/issues</code></p>
+<p><code>GET https://public-api.lumiform.com/api/v1/issues</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -1178,8 +1190,10 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matching an issue's title!
 </aside>
 <h2 id='get-a-specific-issue'>Get a Specific Issue</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
-  <span class="nt">--url</span> <span class="s1">'http://public-api.lumiformdev.com/api/v1/issues/1'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiform.com/api/v1/issues/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -1217,7 +1231,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </span></code></pre></div>
 <p>This endpoint retrieves a specific issue.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://public-api.lumiformdev.com/api/v1/issues/&lt;IssueId&gt;</code></p>
+<p><code>GET https://public-api.lumiform.com/api/v1/issues/&lt;IssueId&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
