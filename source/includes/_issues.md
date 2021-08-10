@@ -4,7 +4,7 @@
 
 ```shell
 curl --request GET \
-  --url 'http://public-api.lumiformdev.com/api/v1/issues' \
+  --url 'https://public-api.lumiform.com/api/v1/issues' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -73,10 +73,10 @@ curl --request GET \
     }
   ],
   "links": {
-    "first": "http://public-api.lumiformdev.com/api/v1/issues?page=1",
-    "last": "http://public-api.lumiformdev.com/api/v1/issues?page=2",
+    "first": "https://public-api.lumiform.com/api/v1/issues?page=1",
+    "last": "https://public-api.lumiform.com/api/v1/issues?page=2",
     "prev": null,
-    "next": "http://public-api.lumiformdev.com/api/v1/issues?page=2"
+    "next": "https://public-api.lumiform.com/api/v1/issues?page=2"
   },
   "meta": {
     "current_page": 1,
@@ -89,22 +89,22 @@ curl --request GET \
         "active": false
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/issues?page=1",
+        "url": "https://public-api.lumiform.com/api/v1/issues?page=1",
         "label": "1",
         "active": true
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/issues?page=2",
+        "url": "https://public-api.lumiform.com/api/v1/issues?page=2",
         "label": "2",
         "active": false
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/issues?page=2",
+        "url": "https://public-api.lumiform.com/api/v1/issues?page=2",
         "label": "Next &raquo;",
         "active": false
       }
     ],
-    "path": "http://public-api.lumiformdev.com/api/v1/issues",
+    "path": "https://public-api.lumiform.com/api/v1/issues",
     "per_page": 15,
     "to": 15,
     "total": 30
@@ -116,7 +116,7 @@ This endpoint retrieves all of your issues.
 
 ### HTTP Request
 
-`GET http://public-api.lumiformdev.com/api/v1/issues`
+`GET https://public-api.lumiform.com/api/v1/issues`
 
 ### Query Parameters
 
@@ -148,7 +148,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 
 ```shell
 curl --request GET \
-  --url 'http://public-api.lumiformdev.com/api/v1/issues/1' \
+  --url 'https://public-api.lumiform.com/api/v1/issues/1' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -193,7 +193,7 @@ This endpoint retrieves a specific issue.
 
 ### HTTP Request
 
-`GET http://public-api.lumiformdev.com/api/v1/issues/<IssueId>`
+`GET https://public-api.lumiform.com/api/v1/issues/<IssueId>`
 
 ### URL Parameters
 

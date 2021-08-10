@@ -5,7 +5,7 @@
 
 ```shell
 curl --request GET \
-  --url 'http://public-api.lumiformdev.com/api/v1/inspections' \
+  --url 'https://public-api.lumiform.com/api/v1/inspections' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -102,10 +102,10 @@ curl --request GET \
     }
   ],
   "links": {
-    "first": "http://public-api.lumiformdev.com/api/v1/inspections?page=1",
-    "last": "http://public-api.lumiformdev.com/api/v1/inspections?page=2",
+    "first": "https://public-api.lumiform.com/api/v1/inspections?page=1",
+    "last": "https://public-api.lumiform.com/api/v1/inspections?page=2",
     "prev": null,
-    "next": "http://public-api.lumiformdev.com/api/v1/inspections?page=2"
+    "next": "https://public-api.lumiform.com/api/v1/inspections?page=2"
   },
   "meta": {
     "current_page": 1,
@@ -118,22 +118,22 @@ curl --request GET \
         "active": false
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/inspections?page=1",
+        "url": "https://public-api.lumiform.com/api/v1/inspections?page=1",
         "label": "1",
         "active": true
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/inspections?page=2",
+        "url": "https://public-api.lumiform.com/api/v1/inspections?page=2",
         "label": "2",
         "active": false
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/inspections?page=2",
+        "url": "https://public-api.lumiform.com/api/v1/inspections?page=2",
         "label": "Next &raquo;",
         "active": false
       }
     ],
-    "path": "http://public-api.lumiformdev.com/api/v1/inspections",
+    "path": "https://public-api.lumiform.com/api/v1/inspections",
     "per_page": 15,
     "to": 15,
     "total": 30
@@ -145,7 +145,7 @@ This endpoint retrieves all of your inspections.
 
 ### HTTP Request
 
-`GET http://public-api.lumiformdev.com/api/v1/inspections`
+`GET https://public-api.lumiform.com/api/v1/inspections`
 
 ### Query Parameters
 
@@ -170,7 +170,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 
 ```shell
 curl --request GET \
-  --url 'http://public-api.lumiformdev.com/api/v1/inspections/1' \
+  --url 'https://public-api.lumiform.com/api/v1/inspections/1' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -217,7 +217,7 @@ This endpoint retrieves a specific inspection.
 
 ### HTTP Request
 
-`GET http://public-api.lumiformdev.com/api/v1/inspections/<InspectionId>`
+`GET https://public-api.lumiform.com/api/v1/inspections/<InspectionId>`
 
 ### URL Parameters
 
@@ -229,7 +229,7 @@ InspectionId | Yes | Number | 1 | The ID of the inspection to retrieve.
 
 ```shell
 curl --request GET \
-  --url 'http://public-api.lumiformdev.com/api/v1/inspections/1/questions' \
+  --url 'https://public-api.lumiform.com/api/v1/inspections/1/questions' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -293,10 +293,10 @@ curl --request GET \
     }
   ],
   "links": {
-    "first": "http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=1",
-    "last": "http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=2",
+    "first": "https://public-api.lumiform.com/api/v1/inspections/1/questions?page=1",
+    "last": "https://public-api.lumiform.com/api/v1/inspections/1/questions?page=2",
     "prev": null,
-    "next": "http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=2"
+    "next": "https://public-api.lumiform.com/api/v1/inspections/1/questions?page=2"
   },
   "meta": {
     "current_page": 1,
@@ -309,22 +309,22 @@ curl --request GET \
         "active": false
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=1",
+        "url": "https://public-api.lumiform.com/api/v1/inspections/1/questions?page=1",
         "label": "1",
         "active": true
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=2",
+        "url": "https://public-api.lumiform.com/api/v1/inspections/1/questions?page=2",
         "label": "2",
         "active": false
       },
       {
-        "url": "http://public-api.lumiformdev.com/api/v1/inspections/1/questions?page=2",
+        "url": "https://public-api.lumiform.com/api/v1/inspections/1/questions?page=2",
         "label": "Next »",
         "active": false
       }
     ],
-    "path": "http://public-api.lumiformdev.com/api/v1/inspections/1/questions",
+    "path": "https://public-api.lumiform.com/api/v1/inspections/1/questions",
     "per_page": 15,
     "to": 15,
     "total": 30
@@ -336,7 +336,7 @@ This endpoint retrieves questions of a specific inspection.
 
 ### HTTP Request
 
-`GET http://public-api.lumiformdev.com/api/v1/inspections/<InspectionId>/questions`
+`GET https://public-api.lumiform.com/api/v1/inspections/<InspectionId>/questions`
 
 ### URL Parameters
 
