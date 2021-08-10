@@ -8,7 +8,9 @@ Tip — use these endpoints to help you filter resources!
 ```shell
 curl --request GET \
   --url 'http://public-api.lumiformdev.com/api/v1/users' \
-  --header 'Authorization: Bearer [your token here]'
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
 ```
 
 > The above command returns JSON structured like this:
@@ -56,7 +58,9 @@ This endpoint retrieves all users of your organization.
 ```shell
 curl --request GET \
   --url 'http://public-api.lumiformdev.com/api/v1/sites' \
-  --header 'Authorization: Bearer [your token here]'
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
 ```
 
 > The above command returns JSON structured like this:

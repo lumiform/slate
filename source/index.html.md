@@ -5,7 +5,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 toc_footers:
-  - <a href='#'>Go to API Management Page</a>
+  - <a href='https://admin.lumiformapp.com/public-api'>Go to API Management Page</a>
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -59,22 +59,22 @@ curl "[api_endpoint_here]" \
 
 > Make sure to replace `yourtoken` with the token you got from the previous response.
 
-Lumiform uses API keys to allow access to the API. Your organization can obtain an API key and secret by visiting the [API management page](https://github.com/slatedocs/slate).
+Lumiform uses API keys to allow access to the API. Your organization can obtain an API key and secret by visiting the [API management page](https://admin.lumiformapp.com/public-api).
 Once you have obtained them, you can get your API key by following these steps:
 
 1. Concatenate your API key and API secret with a colon like so: `apikey:apisecret`
 2. Generate a base64 encoded token from your key and secret concatenated string. You can use [this website](https://www.base64encode.org/) for example.
 3. Make a request to our OAuth 2.0 Token endpoint using Basic Authorization, and your base64 token as the key, as shown in the code example.
-4. You should now receive your API key in the `access_token` field in the response!
+4. You should now receive your bearer token in the `access_token` field which you can use for authorization!
 
 <aside class="notice">
 Take note of the token expiration timer by checking the `expires_in` field.
 </aside>
 
-Lumiform expects for the `access_token` to be included in all API requests to the server in a header that looks like the following:
+Lumiform expects your `access_token` bearer token to be included in the header of all API requests you make:
 
 `Authorization: Bearer [your token here]`
 
 <aside class="notice">
-You must replace <code>[your token here]</code> with your organization's API key.
+You must replace <code>[your token here]</code> with your organization's access token.
 </aside>

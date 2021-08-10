@@ -6,7 +6,9 @@
 ```shell
 curl --request GET \
   --url 'http://public-api.lumiformdev.com/api/v1/inspections' \
-  --header 'Authorization: Bearer [your token here]'
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
 ```
 
 > The above command returns JSON structured like this:
@@ -169,7 +171,9 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 ```shell
 curl --request GET \
   --url 'http://public-api.lumiformdev.com/api/v1/inspections/1' \
-  --header 'Authorization: Bearer [your token here]'
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
 ```
 
 > The above command returns JSON structured like this:
@@ -226,7 +230,9 @@ InspectionId | Yes | Number | 1 | The ID of the inspection to retrieve.
 ```shell
 curl --request GET \
   --url 'http://public-api.lumiformdev.com/api/v1/inspections/1/questions' \
-  --header 'Authorization: Bearer [your token here]'
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
 ```
 
 > The above command returns JSON structured like this:

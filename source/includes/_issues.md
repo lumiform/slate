@@ -5,7 +5,9 @@
 ```shell
 curl --request GET \
   --url 'http://public-api.lumiformdev.com/api/v1/issues' \
-  --header 'Authorization: Bearer [your token here]'
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
 ```
 
 > The above command returns JSON structured like this:
@@ -147,7 +149,9 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 ```shell
 curl --request GET \
   --url 'http://public-api.lumiformdev.com/api/v1/issues/1' \
-  --header 'Authorization: Bearer [your token here]'
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
 ```
 
 > The above command returns JSON structured like this:
