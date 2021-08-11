@@ -32,7 +32,7 @@ You can view cURL request examples in the dark area to the right, as well as exa
 > To obtain your API Bearer token, use this code:
 
 ```shell
-curl GET 'https://public-api.lumiform.com/api/v1/oauth2/token' \
+curl GET 'https://public-api.lumiformapp.com/api/v1/oauth2/token' \
   -H 'Authorization: Basic yourbase64token'
 ```
 

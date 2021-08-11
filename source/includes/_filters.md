@@ -7,7 +7,7 @@ Tip — use these endpoints to help you filter resources!
 
 ```shell
 curl --request GET \
-  --url 'https://public-api.lumiform.com/api/v1/users' \
+  --url 'https://public-api.lumiformapp.com/api/v1/users' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -51,13 +51,13 @@ This endpoint retrieves all users of your organization.
 
 ### HTTP Request
 
-`GET https://public-api.lumiform.com/api/v1/filters/users`
+`GET https://public-api.lumiformapp.com/api/v1/filters/users`
 
 ## Get All Sites
 
 ```shell
 curl --request GET \
-  --url 'https://public-api.lumiform.com/api/v1/sites' \
+  --url 'https://public-api.lumiformapp.com/api/v1/sites' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -84,4 +84,4 @@ This endpoint retrieves all sites of your organization.
 
 ### HTTP Request
 
-`GET https://public-api.lumiform.com/api/v1/filters/sites`
+`GET https://public-api.lumiformapp.com/api/v1/filters/sites`
