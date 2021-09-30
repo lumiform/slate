@@ -7,7 +7,7 @@ Tip — use these endpoints to help you filter resources!
 
 ```shell
 curl --request GET \
-  --url 'https://public-api.lumiformapp.com/api/v1/users' \
+  --url 'https://public-api.lumiformapp.com/api/v1/filters/users' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -57,7 +57,7 @@ This endpoint retrieves all users of your organization.
 
 ```shell
 curl --request GET \
-  --url 'https://public-api.lumiformapp.com/api/v1/sites' \
+  --url 'https://public-api.lumiformapp.com/api/v1/filters/sites' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -85,3 +85,43 @@ This endpoint retrieves all sites of your organization.
 ### HTTP Request
 
 `GET https://public-api.lumiformapp.com/api/v1/filters/sites`
+
+## Get All Checklists
+
+```shell
+curl --request GET \
+  --url 'https://public-api.lumiformapp.com/api/v1/filters/checklists' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Safety checklist",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "title": "Materials checklist",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "title": "Kaminoan cloning tank checklist",
+      "status": "inactive"
+    }
+  ]
+}
+```
+
+This endpoint retrieves all checklists of your organization.
+
+### HTTP Request
+
+`GET https://public-api.lumiformapp.com/api/v1/filters/checklists`

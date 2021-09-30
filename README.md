@@ -15,7 +15,7 @@ Setting up
 - Run the  `bundle exec middleman server` command to launch a small server for previewing your changes. You will need to refresh the browser on each change.
 - You're all set!
    
-You can also run the  `bundle exec middleman build` command to generate the static assets locally and preview them or send them over to your team mates.
+You can also run the  `bundle exec middleman build` command to generate the static assets locally and preview them or send them over to your teammates.
 
 Deploying
 ----------

@@ -44,7 +44,12 @@ curl --request GET \
       "status": "closed",
       "due_at": 1625050211,
       "overdue": false,
-      "issues": []
+      "issues": [],
+      "checklist": {
+        "id": 1,
+        "title": "Safety checklist",
+        "status": "active"
+      }
     },
     {
       "id": 2,
@@ -98,7 +103,12 @@ curl --request GET \
             "email": "yoda@jediknights.com"
           }
         }
-      ]
+      ],
+      "checklist": {
+        "id": 2,
+        "title": "Materials checklist",
+        "status": "active"
+      }
     }
   ],
   "links": {
@@ -161,6 +171,7 @@ sites | No | Array | 1,2,3 | A list of site IDs, or a single ID, to search for i
 statuses | No | Array | open,taken | A list of statuses, or a single status, to search inspections in. **Allowed values:** *open*, *taken*, *closed*, *cant_do*.
 overdue | No | Boolean | true | Toggle filtering for overdue or not overdue inspections.
 title | No | Text | warehouse | A string of text to try and find in the inspections titles.
+checklist | No | Number | 1 | The ID of a checklist to search its conducted inspections.
 
 <aside class="success">
 Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your search to a certain time period!
@@ -208,7 +219,12 @@ curl --request GET \
     "status": "closed",
     "due_at": 1625050211,
     "overdue": false,
-    "issues": []
+    "issues": [],
+    "checklist": {
+      "id": 1,
+      "title": "Safety checklist",
+      "status": "active"
+    }
   }
 }
 ```
