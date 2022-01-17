@@ -1,6 +1,6 @@
-# Issues
+# Actions
 
-## Get All Issues
+## Get All Actions
 
 ```shell
 curl --request GET \
@@ -112,7 +112,7 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves all of your issues.
+This endpoint retrieves all of your actions.
 
 ### HTTP Request
 
@@ -123,28 +123,28 @@ This endpoint retrieves all of your issues.
 Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
 page | No | Number | 1 | The results page number to view. If omitted, the default is 1.
-resolved_by | No | Number | 1 | The user ID to find issues they have resolved.
-title | No | Text | Check | A string of text to try and find in the issues titles.
-updated_from | No | Unix time | 1585589759 | The date from which to search for the update date of your issue.
-updated_to | No | Unix time | 1630185200 | The date to which to search for the update date of your issues.
-created_from | No | Unix time | 1585589759 | The date from which to search for the creation date of your issues.
-created_to | No | Unix time | 1630185200 | The date to which to search for the creation date of your issues.
-sites | No | Array | 1,2,3 | A list of site IDs, or a single ID, to search for issues related to them.
-resolved_from | No | Unix time | 1585589759 | The date from which to search for the resolution date of your issues.
-resolved_to | No | Unix time | 1630185200 | The date to which to search for the resolution date of your issues.
-assignees | No | Array | 1,2,3 | A list of user IDs, or a single ID, to search for issues they are assigned to.
-statuses | No | Array | open,in_progress | A list of statuses, or a single status, to search issues in. **Allowed values:** *open*, *solved*, *in_progress*, *cant_do*.
-due_from | No | Unix time | 1585589759 | The date from which to search for the due date of your issues.
-due_to | No | Unix time | 1630185200 | The date to which to search for the due date of your issues.
+resolved_by | No | Number | 1 | The user ID to find actions they have resolved.
+title | No | Text | Check | A string of text to try and find in the actions titles.
+updated_from | No | Unix time | 1585589759 | The date from which to search for the update date of your action.
+updated_to | No | Unix time | 1630185200 | The date to which to search for the update date of your action.
+created_from | No | Unix time | 1585589759 | The date from which to search for the creation date of your action.
+created_to | No | Unix time | 1630185200 | The date to which to search for the creation date of your action.
+sites | No | Array | 1,2,3 | A list of site IDs, or a single ID, to search for actions related to them.
+resolved_from | No | Unix time | 1585589759 | The date from which to search for the resolution date of your actions.
+resolved_to | No | Unix time | 1630185200 | The date to which to search for the resolution date of your actions.
+assignees | No | Array | 1,2,3 | A list of user IDs, or a single ID, to search for actions they are assigned to.
+statuses | No | Array | open,in_progress | A list of statuses, or a single status, to search actions in. **Allowed values:** *open*, *solved*, *in_progress*, *cant_do*.
+due_from | No | Unix time | 1585589759 | The date from which to search for the due date of your actions.
+due_to | No | Unix time | 1630185200 | The date to which to search for the due date of your actions.
 overdue | No | Boolean | true | Toggle filtering for overdue or not overdue issues.
-priorities | No | Array | normal | A list of priorities, or a single priority, to search issues with. **Allowed values:** *normal*, *high*.
+priorities | No | Array | normal | A list of priorities, or a single priority, to search actions with. **Allowed values:** *normal*, *high*.
 created_by | No | Number | 1 | The user ID to find issues they have created.
 
 <aside class="success">
-Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matching an issue's title!
+Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matching an action's title!
 </aside>
 
-## Get a Specific Issue
+## Get a Specific Action
 
 ```shell
 curl --request GET \
@@ -189,7 +189,7 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves a specific issue.
+This endpoint retrieves a specific action.
 
 ### HTTP Request
 
@@ -199,4 +199,4 @@ This endpoint retrieves a specific issue.
 
 Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
-IssueId | Yes | Number | 1 | The ID of the issue to retrieve.
+IssueId | Yes | Number | 1 | The ID of the action to retrieve.

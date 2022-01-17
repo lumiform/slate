@@ -11,7 +11,7 @@ toc_footers:
 includes:
   - filters
   - inspections 
-  - issues
+  - actions
   - errors
 
 search: true
@@ -21,8 +21,8 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to the Lumiform Public API documentation! You can use our API to get your organization's Inspections, Questions and Issues.
-Lists of Inspections and Issues are paginated. Paginated responses also have a `meta` and a `links` property 
+Welcome to the Lumiform Public API documentation! You can use our API to get your organization's Inspections, Questions and Actions.
+Lists of Inspections and Actions are paginated. Paginated responses also have a `meta` and a `links` property 
 useful for navigation - or even for helping you build a navigation UI if you desire!
  
 You can view cURL request examples in the dark area to the right, as well as examples of the responses you should expect to get.
