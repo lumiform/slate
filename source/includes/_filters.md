@@ -86,7 +86,7 @@ This endpoint retrieves all sites of your organization.
 
 `GET https://public-api.lumiformapp.com/api/v1/filters/sites`
 
-## Get All Checklists
+## Get All Form Templates
 
 ```shell
 curl --request GET \
@@ -120,7 +120,7 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves all checklists of your organization.
+This endpoint retrieves all form templates of your organization.
 
 ### HTTP Request
 

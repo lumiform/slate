@@ -1,6 +1,6 @@
-# Inspections
+# Form submissions
 
-## Get All Inspections
+## Get All Form submissions
 
 
 ```shell
@@ -151,7 +151,7 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves all of your inspections.
+This endpoint retrieves all of your form submissions.
 
 ### HTTP Request
 
@@ -162,22 +162,22 @@ This endpoint retrieves all of your inspections.
 Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
 page | No | Number | 1 | The results page number to view. If omitted, the default is 1.
-conducted_from | No | Unix time | 1585589759 | The date from which to search for conducted inspections.
-conducted_to | No | Unix time | 1630185200 | The date to which to search for conducted inspections.
-due_from | No | Unix time | 1585589759 | The date from which to search for the due date of your inspections.
-due_to | No | Unix time | 1630185200 | The date to which to search for the due date of your inspections.
-users | No | Array | 1,2,3 | A list of user IDs, or a single ID, to search for inspections they conducted.
-sites | No | Array | 1,2,3 | A list of site IDs, or a single ID, to search for inspections where they were conducted.
-statuses | No | Array | open,taken | A list of statuses, or a single status, to search inspections in. **Allowed values:** *open*, *taken*, *closed*, *cant_do*.
-overdue | No | Boolean | true | Toggle filtering for overdue or not overdue inspections.
-title | No | Text | warehouse | A string of text to try and find in the inspections titles.
-checklist | No | Number | 1 | The ID of a checklist to search its conducted inspections.
+conducted_from | No | Unix time | 1585589759 | The date from which to search for submitted forms.
+conducted_to | No | Unix time | 1630185200 | The date to which to search for submitted forms.
+due_from | No | Unix time | 1585589759 | The date from which to search for the due date of your form submissions.
+due_to | No | Unix time | 1630185200 | The date to which to search for the due date of your form submissions.
+users | No | Array | 1,2,3 | A list of user IDs, or a single ID, to search for form submissions they conducted.
+sites | No | Array | 1,2,3 | A list of site IDs, or a single ID, to search for form submissions where they were conducted.
+statuses | No | Array | open,taken | A list of statuses, or a single status, to search form submissions in. **Allowed values:** *open*, *taken*, *closed*, *cant_do*.
+overdue | No | Boolean | true | Toggle filtering for overdue or not overdue form submissions.
+title | No | Text | warehouse | A string of text to try and find in the form submissions titles.
+checklist | No | Number | 1 | The ID of a form template to search its submitted forms.
 
 <aside class="success">
 Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your search to a certain time period!
 </aside>
 
-## Get a Specific Inspection
+## Get a Specific form submissions
 
 ```shell
 curl --request GET \
@@ -229,7 +229,7 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves a specific inspection.
+This endpoint retrieves a specific form submissions.
 
 ### HTTP Request
 
@@ -239,9 +239,9 @@ This endpoint retrieves a specific inspection.
 
 Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
-InspectionId | Yes | Number | 1 | The ID of the inspection to retrieve.
+InspectionId | Yes | Number | 1 | The ID of the form submissions to retrieve.
 
-## Get Questions of an Inspection
+## Get Questions of a form submissions
 
 ```shell
 curl --request GET \
@@ -348,7 +348,7 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves questions of a specific inspection.
+This endpoint retrieves questions of a specific form submission.
 
 ### HTTP Request
 
@@ -358,7 +358,7 @@ This endpoint retrieves questions of a specific inspection.
 
 Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
-InspectionId | Yes | Number | 1 | The ID of the inspection to retrieve questions from.
+InspectionId | Yes | Number | 1 | The ID of the form submission to retrieve questions from.
 
 ### Query Parameters
 
