@@ -86,7 +86,53 @@ This endpoint retrieves all sites of your organization.
 
 `GET https://public-api.lumiformapp.com/api/v1/filters/sites`
 
+
+## Get All Form Templates
+
+```shell
+curl --request GET \
+  --url 'https://public-api.lumiformapp.com/api/v2/filters/form-templates' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Safety form template",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "title": "Materials form template",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "title": "Kaminoan cloning tank form template",
+      "status": "inactive"
+    }
+  ]
+}
+```
+
+This endpoint retrieves all form templates of your organization.
+
+### HTTP Request
+
+`GET https://public-api.lumiformapp.com/api/v2/filters/form-templates`
+
+
 ## Get All Checklists
+<aside class="warning">
+Inspection endpoints are deprecated and will be discontinued in the future. Please refer to Forms and Actions documentation.
+</aside>
+
 
 ```shell
 curl --request GET \
