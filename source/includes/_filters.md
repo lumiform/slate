@@ -148,7 +148,7 @@ This endpoint retrieves all users of your organization.
 
 ## Get All Sites
 <aside class="warning">
-User v1 endpoint is deprecated and will be discontinued in the future. Please refer to v2 documentation bellow.
+Site v1 endpoint is deprecated and will be discontinued in the future. Please refer to v2 documentation bellow.
 </aside>
 
 ```shell
