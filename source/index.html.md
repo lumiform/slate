@@ -10,9 +10,11 @@ toc_footers:
 
 includes:
   - filters
-  - inspections 
-  - issues
+  - forms
+  - actions
   - errors
+  - inspections
+  - issues
 
 search: true
 

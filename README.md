@@ -6,6 +6,12 @@
 
 <p align="center"><img src="./source/images/example.png" width=700 alt="Screenshot of Example Documentation created with Slate"></p>
 
+Setting up local dev with docker
+----------
+- Clone this repository to your local machine
+- Pull docker image `docker pull slatedocs/slate`
+- Generate docs by running: `docker run --rm -v $PWD/source:/srv/slate/source -v $PWD/build:/srv/slate/build  -p 4567:4567 -it slate build`
+
 Setting up
 ----------
 - Clone this repository to your local machine and follow Slate's [installation instructions](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively). It should be

@@ -1,16 +1,11 @@
-# Inspections
+# Forms
 
-## Deprecated
-<aside class="warning">
-Inspection endpoints are deprecated and will be discontinued in the future. Please refer to Forms and Actions documentation.
-</aside>
-
-## Get All Inspections
+## Get All Forms
 
 
 ```shell
 curl --request GET \
-  --url 'https://public-api.lumiformapp.com/api/v1/inspections' \
+  --url 'https://public-api.lumiformapp.com/api/v2/forms' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -117,10 +112,10 @@ curl --request GET \
     }
   ],
   "links": {
-    "first": "https://public-api.lumiformapp.com/api/v1/inspections?page=1",
-    "last": "https://public-api.lumiformapp.com/api/v1/inspections?page=2",
+    "first": "https://public-api.lumiformapp.com/api/v2/forms?page=1",
+    "last": "https://public-api.lumiformapp.com/api/v2/forms?page=2",
     "prev": null,
-    "next": "https://public-api.lumiformapp.com/api/v1/inspections?page=2"
+    "next": "https://public-api.lumiformapp.com/api/v2/forms?page=2"
   },
   "meta": {
     "current_page": 1,
@@ -133,22 +128,22 @@ curl --request GET \
         "active": false
       },
       {
-        "url": "https://public-api.lumiformapp.com/api/v1/inspections?page=1",
+        "url": "https://public-api.lumiformapp.com/api/v2/forms?page=1",
         "label": "1",
         "active": true
       },
       {
-        "url": "https://public-api.lumiformapp.com/api/v1/inspections?page=2",
+        "url": "https://public-api.lumiformapp.com/api/v2/forms?page=2",
         "label": "2",
         "active": false
       },
       {
-        "url": "https://public-api.lumiformapp.com/api/v1/inspections?page=2",
+        "url": "https://public-api.lumiformapp.com/api/v2/forms?page=2",
         "label": "Next &raquo;",
         "active": false
       }
     ],
-    "path": "https://public-api.lumiformapp.com/api/v1/inspections",
+    "path": "https://public-api.lumiformapp.com/api/v2/forms",
     "per_page": 15,
     "to": 15,
     "total": 30
@@ -156,37 +151,37 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves all of your inspections.
+This endpoint retrieves all of your forms.
 
 ### HTTP Request
 
-`GET https://public-api.lumiformapp.com/api/v1/inspections`
+`GET https://public-api.lumiformapp.com/api/v2/forms`
 
 ### Query Parameters
 
 Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
 page | No | Number | 1 | The results page number to view. If omitted, the default is 1.
-conducted_from | No | Unix time | 1585589759 | The date from which to search for conducted inspections.
-conducted_to | No | Unix time | 1630185200 | The date to which to search for conducted inspections.
-due_from | No | Unix time | 1585589759 | The date from which to search for the due date of your inspections.
-due_to | No | Unix time | 1630185200 | The date to which to search for the due date of your inspections.
-users | No | Array | 1,2,3 | A list of user IDs, or a single ID, to search for inspections they conducted.
-sites | No | Array | 1,2,3 | A list of site IDs, or a single ID, to search for inspections where they were conducted.
-statuses | No | Array | open,taken | A list of statuses, or a single status, to search inspections in. **Allowed values:** *open*, *taken*, *closed*, *cant_do*.
-overdue | No | Boolean | true | Toggle filtering for overdue or not overdue inspections.
-title | No | Text | warehouse | A string of text to try and find in the inspections titles.
-checklist | No | Number | 1 | The ID of a checklist to search its conducted inspections.
+conducted_from | No | Unix time | 1585589759 | The date from which to search for conducted forms.
+conducted_to | No | Unix time | 1630185200 | The date to which to search for conducted forms.
+due_from | No | Unix time | 1585589759 | The date from which to search for the due date of your forms.
+due_to | No | Unix time | 1630185200 | The date to which to search for the due date of your forms.
+users | No | Array | 1,2,3 | A list of user IDs, or a single ID, to search for forms they conducted.
+sites | No | Array | 1,2,3 | A list of site IDs, or a single ID, to search for forms where they were conducted.
+statuses | No | Array | open,taken | A list of statuses, or a single status, to search forms in. **Allowed values:** *open*, *taken*, *closed*, *cant_do*.
+overdue | No | Boolean | true | Toggle filtering for overdue or not overdue forms.
+title | No | Text | warehouse | A string of text to try and find in the forms titles.
+checklist | No | Number | 1 | The ID of a checklist to search its conducted forms.
 
 <aside class="success">
 Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your search to a certain time period!
 </aside>
 
-## Get a Specific Inspection
+## Get a Specific Form
 
 ```shell
 curl --request GET \
-  --url 'https://public-api.lumiformapp.com/api/v1/inspections/1' \
+  --url 'https://public-api.lumiformapp.com/api/v2/forms/1' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -234,23 +229,23 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves a specific inspection.
+This endpoint retrieves a specific form.
 
 ### HTTP Request
 
-`GET https://public-api.lumiformapp.com/api/v1/inspections/<InspectionId>`
+`GET https://public-api.lumiformapp.com/api/v2/forms/<FormId>`
 
 ### URL Parameters
 
 Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
-InspectionId | Yes | Number | 1 | The ID of the inspection to retrieve.
+FormId | Yes | Number | 1 | The ID of the form to retrieve.
 
-## Get Questions of an Inspection
+## Get Questions of an Form
 
 ```shell
 curl --request GET \
-  --url 'https://public-api.lumiformapp.com/api/v1/inspections/1/questions' \
+  --url 'https://public-api.lumiformapp.com/api/v2/forms/1/questions' \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' 
@@ -314,10 +309,10 @@ curl --request GET \
     }
   ],
   "links": {
-    "first": "https://public-api.lumiformapp.com/api/v1/inspections/1/questions?page=1",
-    "last": "https://public-api.lumiformapp.com/api/v1/inspections/1/questions?page=2",
+    "first": "https://public-api.lumiformapp.com/api/v2/forms/1/questions?page=1",
+    "last": "https://public-api.lumiformapp.com/api/v2/forms/1/questions?page=2",
     "prev": null,
-    "next": "https://public-api.lumiformapp.com/api/v1/inspections/1/questions?page=2"
+    "next": "https://public-api.lumiformapp.com/api/v2/forms/1/questions?page=2"
   },
   "meta": {
     "current_page": 1,
@@ -330,22 +325,22 @@ curl --request GET \
         "active": false
       },
       {
-        "url": "https://public-api.lumiformapp.com/api/v1/inspections/1/questions?page=1",
+        "url": "https://public-api.lumiformapp.com/api/v2/forms/1/questions?page=1",
         "label": "1",
         "active": true
       },
       {
-        "url": "https://public-api.lumiformapp.com/api/v1/inspections/1/questions?page=2",
+        "url": "https://public-api.lumiformapp.com/api/v2/forms/1/questions?page=2",
         "label": "2",
         "active": false
       },
       {
-        "url": "https://public-api.lumiformapp.com/api/v1/inspections/1/questions?page=2",
+        "url": "https://public-api.lumiformapp.com/api/v2/forms/1/questions?page=2",
         "label": "Next »",
         "active": false
       }
     ],
-    "path": "https://public-api.lumiformapp.com/api/v1/inspections/1/questions",
+    "path": "https://public-api.lumiformapp.com/api/v2/forms/1/questions",
     "per_page": 15,
     "to": 15,
     "total": 30
@@ -353,17 +348,17 @@ curl --request GET \
 }
 ```
 
-This endpoint retrieves questions of a specific inspection.
+This endpoint retrieves questions of a specific form.
 
 ### HTTP Request
 
-`GET https://public-api.lumiformapp.com/api/v1/inspections/<InspectionId>/questions`
+`GET https://public-api.lumiformapp.com/api/v2/forms/<FormId>/questions`
 
 ### URL Parameters
 
 Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
-InspectionId | Yes | Number | 1 | The ID of the inspection to retrieve questions from.
+FormId | Yes | Number | 1 | The ID of the form to retrieve questions from.
 
 ### Query Parameters
 
