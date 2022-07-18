@@ -15,6 +15,7 @@ includes:
   - errors
   - inspections
   - issues
+  - Groups
 
 search: true
 
