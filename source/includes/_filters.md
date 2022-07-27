@@ -148,7 +148,7 @@ This endpoint retrieves all users of your organization.
 
 ## Get All Sites
 <aside class="warning">
-Site v1 endpoint is deprecated and will be discontinued in the future. Please refer to v2 documentation bellow.
+Site v1 endpoint is deprecated and will be discontinued in the future. Please refer to v2 documentation.
 </aside>
 
 ```shell
@@ -181,78 +181,6 @@ This endpoint retrieves all sites of your organization.
 ### HTTP Request
 
 `GET https://public-api.lumiformapp.com/api/v1/filters/sites`
-
-## Get All Sites
-
-```shell
-curl --request GET \
-  --url 'https://public-api.lumiformapp.com/api/v2/filters/sites' \
-  --header 'Authorization: Bearer [your token here]' \
-  --header 'Accept: application/json' \
-  --header 'Content-Type: application/json' 
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "data": [
-    {
-      "id": 1,
-      "title": "Temple of Coruscant"
-    },
-    {
-      "id": 2,
-      "title": "Temple of Ahch-To"
-    }
-  ],
-  "links": {
-    "first": "https:\/\/public-api.lumiformapp.com\/api\/v2\/filters\/sites?page=1",
-    "last": "https:\/\/public-api.lumiformapp.com\/api\/v2\/filters\/sites?page=1",
-    "prev": null,
-    "next": null
-  },
-  "meta": {
-    "current_page": 1,
-    "from": 1,
-    "last_page": 1,
-    "links": [
-      {
-        "url": null,
-        "label": "&laquo; Previous",
-        "active": false
-      },
-      {
-        "url": "https:\/\/public-api.lumiformapp.com\/api\/v2\/filters\/sites?page=1",
-        "label": "1",
-        "active": true
-      },
-      {
-        "url": null,
-        "label": "Next &raquo;",
-        "active": false
-      }
-    ],
-    "path": "https:\/\/public-api.lumiformapp.com\/api\/v2\/filters\/sites",
-    "per_page": 15,
-    "to": 2,
-    "total": 2
-  }
-}
-```
-
-This endpoint retrieves all sites of your organization.
-
-### HTTP Request
-
-`GET https://public-api.lumiformapp.com/api/v2/filters/sites`
-
-### Query Parameters
-
-| Parameter | Required | Type   | Example | Description                                                    |
-|-----------|----------|--------|---------|----------------------------------------------------------------|
-| page      | No       | Number | 1       | The results page number to view. If omitted, the default is 1. |
-| title     | No       | Text   | berlin  | A string of text to try and find in the sites titles.          |
 
 ## Get All Form Templates
 
