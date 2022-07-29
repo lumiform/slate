@@ -16,6 +16,7 @@ includes:
   - inspections
   - issues
   - Groups
+  - Sites
 
 search: true
 
