@@ -10,6 +10,7 @@ toc_footers:
 
 includes:
   - filters
+  - roles
   - forms
   - actions
   - errors
@@ -17,6 +18,7 @@ includes:
   - issues
   - Groups
   - Sites
+  - Users
 
 search: true
 
