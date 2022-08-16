@@ -9,14 +9,16 @@ toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - filters
-  - forms
-  - actions
-  - errors
-  - inspections
-  - issues
+  - Filters
+  - Roles
+  - Forms
+  - Actions
+  - Errors
+  - Inspections
+  - Issues
   - Groups
   - Sites
+  - Users
 
 search: true
 
