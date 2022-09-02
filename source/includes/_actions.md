@@ -17,59 +17,15 @@ curl --request GET \
   "data": [
     {
       "id": 1,
-      "title": "Check the droid attack on the Wookies",
-      "updated_at": 1593378800,
-      "site": {
-        "id": 1,
-        "title": "Temple of Coruscant"
-      },
-      "resolved_at": 1624914800,
-      "resolved_by": null,
-      "created_at": 1598649200,
-      "assignees": [
-        {
-          "id": 2,
-          "name": "Yoda",
-          "email": "yoda@jediknights.com"
-        }
-      ],
+      "title": "Check the droid attack on the Wookies",      
       "status": "in_progress",
-      "due_at": 1630185200,
-      "overdue": false,
-      "priority": "normal",
-      "created_by": {
-        "id": 5,
-        "name": "Ki-Adi-Mundi",
-        "email": "ki.adi.mundi@jediknights.com"
-      }
+      "due_at": 1630185200      
     },
     {
       "id": 2,
       "title": "Add Kamino to the archives",
-      "updated_at": 1593378800,
-      "site": {
-        "id": 1,
-        "title": "Temple of Coruscant"
-      },
-      "resolved_at": 1624914800,
-      "resolved_by": null,
-      "created_at": 1598649200,
-      "assignees": [
-        {
-          "id": 4,
-          "name": "Jocasta Nu",
-          "email": "jocasta.nu@jediknights.com"
-        }
-      ],
       "status": "in_progress",
-      "due_at": 1630185200,
-      "overdue": false,
-      "priority": "high",
-      "created_by": {
-        "id": 1,
-        "name": "Obi-Wan Kenobi",
-        "email": "obi.wan@jediknights.com"
-      }
+      "due_at": 1630185200
     }
   ],
   "links": {
@@ -161,10 +117,12 @@ curl --request GET \
   "data": {
     "id": 1,
     "title": "Check the droid attack on the Wookies",
+    "description": "action description",
     "updated_at": 1593378800,
     "site": {
       "id": 1,
-      "title": "Temple of Coruscant"
+      "title": "Temple of Coruscant",
+      "description": "Site description"
     },
     "resolved_at": 1624914800,
     "resolved_by": null,
@@ -200,3 +158,83 @@ This endpoint retrieves a specific action.
 | Parameter | Required | Type   | Example | Description                       |
 |-----------|----------|--------|---------|-----------------------------------|
 | ActionId  | Yes      | Number | 1       | The ID of the action to retrieve. |
+
+## Create an Action
+
+```shell
+curl --request POST \
+  --url 'https://public-api.lumiformapp.com/api/v2/actions' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --d '{"title": "action title", "description": "action description", "site": 576577251, "status": "open", "assignees":[1,2], "due_at": 1585639822, "priority": "high"}'
+```
+> Mandatory fields: title
+
+> status values: open, solved, in_progress or cant_do 
+>
+> priority values: normal or high
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 123
+}
+```
+
+This endpoint creates a site.
+
+### HTTP Request
+
+`POST https://public-api.lumiformapp.com/api/v2/actions`
+
+## Update an Action
+
+```shell
+curl --request PUT \
+  --url 'https://public-api.lumiformapp.com/api/v2/actions/1' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --d '{"title": "action title", "description": "action description", "site": 576577251, "status": "open", "assignees":[1,2], "due_at": 1585639822, "priority": "high"}'
+```
+> Mandatory fields: title
+
+> The above command does not return any data
+
+This endpoint updates a specific action.
+
+### HTTP Request
+
+`PUT https://public-api.lumiformapp.com/api/v2/actions/<ActionId>`
+
+### URL Parameters
+
+| Parameter | Required | Type   | Example | Description                     |
+|-----------|----------|--------|---------|---------------------------------|
+| ActionId  | Yes      | Number | 1       | The ID of the action to update. |
+
+## Delete an Action
+
+```shell
+curl --request DELETE \
+  --url 'https://public-api.lumiformapp.com/api/v2/actions/1' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
+```
+
+> The above command does not return any data
+
+This endpoint deletes a specific action.
+
+### HTTP Request
+
+`DELETE https://public-api.lumiformapp.com/api/v2/actions/<ActionId>`
+
+### URL Parameters
+
+| Parameter | Required | Type   | Example | Description                     |
+|-----------|----------|--------|---------|---------------------------------|
+| ActionId  | Yes      | Number | 1       | The ID of the action to delete. |
