@@ -10,7 +10,9 @@ Setting up local dev with docker
 ----------
 - Clone this repository to your local machine
 - Pull docker image `docker pull slatedocs/slate`
-- Generate docs by running: `docker run --rm -v $PWD/source:/srv/slate/source -v $PWD/build:/srv/slate/build  -p 4567:4567 -it slate build`
+- Generate docs by running: `docker run --rm --name slate -v $(pwd)/build:/srv/slate/build -v $(pwd)/source:/srv/slate/source slatedocs/slate` and `docker run --rm --name slate -p 4567:4567 -v $(pwd)/source:/srv/slate/source slatedocs/slate serve`
+- If login is required, run `docker login` and sign in with your docker account. Repeat the previous step.
+- Access the documentation: http://localhost:4567/
 
 Setting up
 ----------
