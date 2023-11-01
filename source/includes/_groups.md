@@ -122,7 +122,7 @@ This endpoint retrieves a specific group.
 
 ### HTTP Request
 
-`GET https://public-api.lumiformapp.com/api/v2/group/<GroupId>`
+`GET https://public-api.lumiformapp.com/api/v2/groups/<GroupId>`
 
 ### URL Parameters
 
@@ -153,7 +153,7 @@ This endpoint creates a group.
 
 ### HTTP Request
 
-`POST https://public-api.lumiformapp.com/api/v2/group`
+`POST https://public-api.lumiformapp.com/api/v2/groups`
 
 ## Update a Group
 
@@ -172,7 +172,7 @@ This endpoint updates a specific group.
 
 ### HTTP Request
 
-`PUT https://public-api.lumiformapp.com/api/v2/group/<GroupId>`
+`PUT https://public-api.lumiformapp.com/api/v2/groups/<GroupId>`
 
 ### URL Parameters
 
@@ -196,7 +196,7 @@ This endpoint deletes a specific group.
 
 ### HTTP Request
 
-`DELETE https://public-api.lumiformapp.com/api/v2/group/<GroupId>`
+`DELETE https://public-api.lumiformapp.com/api/v2/groups/<GroupId>`
 
 ### URL Parameters
 
