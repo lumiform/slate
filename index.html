@@ -318,10 +318,10 @@
             <a href="#filters" class="toc-h1 toc-link" data-title="Filters">Filters</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-users" class="toc-h2 toc-link" data-title="Get All Users">Get All Users</a>
+                    <a href="#get-all-users-v1" class="toc-h2 toc-link" data-title="Get All Users (v1)">Get All Users (v1)</a>
                   </li>
                   <li>
-                    <a href="#get-all-sites" class="toc-h2 toc-link" data-title="Get All Sites">Get All Sites</a>
+                    <a href="#get-all-sites-v1" class="toc-h2 toc-link" data-title="Get All Sites (v1)">Get All Sites (v1)</a>
                   </li>
                   <li>
                     <a href="#get-all-form-templates" class="toc-h2 toc-link" data-title="Get All Form Templates">Get All Form Templates</a>
@@ -383,9 +383,6 @@
             <a href="#inspections" class="toc-h1 toc-link" data-title="Inspections">Inspections</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#deprecated" class="toc-h2 toc-link" data-title="Deprecated">Deprecated</a>
-                  </li>
-                  <li>
                     <a href="#get-all-inspections" class="toc-h2 toc-link" data-title="Get All Inspections">Get All Inspections</a>
                   </li>
                   <li>
@@ -399,9 +396,6 @@
           <li>
             <a href="#issues" class="toc-h1 toc-link" data-title="Issues">Issues</a>
               <ul class="toc-list-h2">
-                  <li>
-                    <a href="#deprecated" class="toc-h2 toc-link" data-title="Deprecated">Deprecated</a>
-                  </li>
                   <li>
                     <a href="#get-all-issues" class="toc-h2 toc-link" data-title="Get All Issues">Get All Issues</a>
                   </li>
@@ -540,7 +534,7 @@ You must replace <code>[your token here]</code> with your organization's access 
 <aside class="success">
 Tip — use these endpoints to help you filter resources!
 </aside>
-<h2 id='get-all-users'>Get All Users</h2>
+<h2 id='get-all-users-v1'>Get All Users (v1)</h2>
 <aside class="warning">
 User v1 endpoint is deprecated and will be discontinued in the future. Please refer to v2 documentation.
 </aside>
@@ -586,7 +580,7 @@ User v1 endpoint is deprecated and will be discontinued in the future. Please re
 <p>This endpoint retrieves all users of your organization.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://public-api.lumiformapp.com/api/v1/filters/users</code></p>
-<h2 id='get-all-sites'>Get All Sites</h2>
+<h2 id='get-all-sites-v1'>Get All Sites (v1)</h2>
 <aside class="warning">
 Site v1 endpoint is deprecated and will be discontinued in the future. Please refer to v2 documentation.
 </aside>
@@ -1762,7 +1756,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
-<h1 id='inspections'>Inspections</h1><h2 id='deprecated'>Deprecated</h2>
+<h1 id='inspections'>Inspections</h1>
 <aside class="warning">
 Inspection endpoints are deprecated and will be discontinued in the future. Please refer to Forms and Actions documentation.
 </aside>
@@ -2243,7 +2237,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 <td>Toggle filtering for negatively answered questions.</td>
 </tr>
 </tbody></table>
-<h1 id='issues'>Issues</h1><h2 id='deprecated'>Deprecated</h2>
+<h1 id='issues'>Issues</h1>
 <aside class="warning">
 Inspection endpoints are deprecated and will be discontinued in the future. Please refer to Forms and Actions documentation.
 </aside>
@@ -2677,7 +2671,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </span></code></pre></div>
 <p>This endpoint retrieves a specific group.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://public-api.lumiformapp.com/api/v2/group/&lt;GroupId&gt;</code></p>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/groups/&lt;GroupId&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -2712,7 +2706,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </span></code></pre></div>
 <p>This endpoint creates a group.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST https://public-api.lumiformapp.com/api/v2/group</code></p>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/groups</code></p>
 <h2 id='update-a-group'>Update a Group</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/groups/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
@@ -2726,7 +2720,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 
 <p>This endpoint updates a specific group.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>PUT https://public-api.lumiformapp.com/api/v2/group/&lt;GroupId&gt;</code></p>
+<p><code>PUT https://public-api.lumiformapp.com/api/v2/groups/&lt;GroupId&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -2757,7 +2751,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 
 <p>This endpoint deletes a specific group.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>DELETE https://public-api.lumiformapp.com/api/v2/group/&lt;GroupId&gt;</code></p>
+<p><code>DELETE https://public-api.lumiformapp.com/api/v2/groups/&lt;GroupId&gt;</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -2913,7 +2907,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </span></code></pre></div>
 <p>This endpoint retrieves a specific site.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://public-api.lumiformapp.com/api/v2/site/&lt;SiteId&gt;</code></p>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/sites/&lt;SiteId&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -2950,7 +2944,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </span></code></pre></div>
 <p>This endpoint creates a site.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST https://public-api.lumiformapp.com/api/v2/site</code></p>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/sites</code></p>
 <h2 id='update-a-site'>Update a Site</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/sites/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
@@ -2966,7 +2960,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 
 <p>This endpoint updates a specific site.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>PUT https://public-api.lumiformapp.com/api/v2/site/&lt;SiteId&gt;</code></p>
+<p><code>PUT https://public-api.lumiformapp.com/api/v2/sites/&lt;SiteId&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -2997,7 +2991,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 
 <p>This endpoint deletes a specific site.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>DELETE https://public-api.lumiformapp.com/api/v2/site/&lt;SiteId&gt;</code></p>
+<p><code>DELETE https://public-api.lumiformapp.com/api/v2/sites/&lt;SiteId&gt;</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -3139,7 +3133,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </span></code></pre></div>
 <p>This endpoint retrieves a specific user.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET https://public-api.lumiformapp.com/api/v2/user/&lt;UserId&gt;</code></p>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/users/&lt;UserId&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -3176,7 +3170,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </span></code></pre></div>
 <p>This endpoint creates a user.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST https://public-api.lumiformapp.com/api/v2/user</code></p>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/users</code></p>
 <h2 id='update-a-user'>Update a User</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/users/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
@@ -3192,7 +3186,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 
 <p>This endpoint updates a specific user.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>PUT https://public-api.lumiformapp.com/api/v2/user/&lt;UserId&gt;</code></p>
+<p><code>PUT https://public-api.lumiformapp.com/api/v2/users/&lt;UserId&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -3223,7 +3217,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 
 <p>This endpoint deletes a specific user.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>DELETE https://public-api.lumiformapp.com/api/v2/user/&lt;UserId&gt;</code></p>
+<p><code>DELETE https://public-api.lumiformapp.com/api/v2/users/&lt;UserId&gt;</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
 <table><thead>
 <tr>
