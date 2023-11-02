@@ -120,7 +120,7 @@ This endpoint retrieves a specific user.
 
 ### HTTP Request
 
-`GET https://public-api.lumiformapp.com/api/v2/user/<UserId>`
+`GET https://public-api.lumiformapp.com/api/v2/users/<UserId>`
 
 ### URL Parameters
 
@@ -152,7 +152,7 @@ This endpoint creates a user.
 
 ### HTTP Request
 
-`POST https://public-api.lumiformapp.com/api/v2/user`
+`POST https://public-api.lumiformapp.com/api/v2/users`
 
 ## Update a User
 
@@ -172,7 +172,7 @@ This endpoint updates a specific user.
 
 ### HTTP Request
 
-`PUT https://public-api.lumiformapp.com/api/v2/user/<UserId>`
+`PUT https://public-api.lumiformapp.com/api/v2/users/<UserId>`
 
 ### URL Parameters
 
@@ -196,7 +196,7 @@ This endpoint deletes a specific user.
 
 ### HTTP Request
 
-`DELETE https://public-api.lumiformapp.com/api/v2/user/<UserId>`
+`DELETE https://public-api.lumiformapp.com/api/v2/users/<UserId>`
 
 ### URL Parameters
 

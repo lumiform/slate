@@ -134,7 +134,7 @@ This endpoint retrieves a specific site.
 
 ### HTTP Request
 
-`GET https://public-api.lumiformapp.com/api/v2/site/<SiteId>`
+`GET https://public-api.lumiformapp.com/api/v2/sites/<SiteId>`
 
 ### URL Parameters
 
@@ -166,7 +166,7 @@ This endpoint creates a site.
 
 ### HTTP Request
 
-`POST https://public-api.lumiformapp.com/api/v2/site`
+`POST https://public-api.lumiformapp.com/api/v2/sites`
 
 ## Update a Site
 
@@ -186,7 +186,7 @@ This endpoint updates a specific site.
 
 ### HTTP Request
 
-`PUT https://public-api.lumiformapp.com/api/v2/site/<SiteId>`
+`PUT https://public-api.lumiformapp.com/api/v2/sites/<SiteId>`
 
 ### URL Parameters
 
@@ -210,7 +210,7 @@ This endpoint deletes a specific site.
 
 ### HTTP Request
 
-`DELETE https://public-api.lumiformapp.com/api/v2/site/<SiteId>`
+`DELETE https://public-api.lumiformapp.com/api/v2/sites/<SiteId>`
 
 ### URL Parameters
 

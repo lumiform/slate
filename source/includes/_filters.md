@@ -3,7 +3,7 @@
 Tip — use these endpoints to help you filter resources!
 </aside>
 
-## Get All Users
+## Get All Users (v1)
 <aside class="warning">
 User v1 endpoint is deprecated and will be discontinued in the future. Please refer to v2 documentation.
 </aside>
@@ -56,7 +56,7 @@ This endpoint retrieves all users of your organization.
 
 `GET https://public-api.lumiformapp.com/api/v1/filters/users`
 
-## Get All Sites
+## Get All Sites (v1)
 <aside class="warning">
 Site v1 endpoint is deprecated and will be discontinued in the future. Please refer to v2 documentation.
 </aside>

@@ -1,6 +1,5 @@
 # Inspections
 
-## Deprecated
 <aside class="warning">
 Inspection endpoints are deprecated and will be discontinued in the future. Please refer to Forms and Actions documentation.
 </aside>
