@@ -18,6 +18,9 @@ includes:
   - issues
   - groups
   - sites
+  - entity_folders
+  - entity_types
+  - entity_items
   - users
 
 search: true
