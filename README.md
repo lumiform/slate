@@ -25,7 +25,6 @@ Setting up
    
 You can also run the  `bundle exec middleman build` command to generate the static assets locally and preview them or send them over to your teammates.
 
-
 Deploying
 ----------
 After pushing your changes to the `main` branch, simply run ` ./deploy.sh`
