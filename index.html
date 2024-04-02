@@ -445,6 +445,66 @@
               </ul>
           </li>
           <li>
+            <a href="#entity-folders" class="toc-h1 toc-link" data-title="Entity Folders">Entity Folders</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-entity-folders" class="toc-h2 toc-link" data-title="Get All Entity Folders">Get All Entity Folders</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-entity-folder" class="toc-h2 toc-link" data-title="Get a Specific Entity Folder">Get a Specific Entity Folder</a>
+                  </li>
+                  <li>
+                    <a href="#create-an-entity-folder" class="toc-h2 toc-link" data-title="Create an Entity Folder">Create an Entity Folder</a>
+                  </li>
+                  <li>
+                    <a href="#update-an-entity-folder" class="toc-h2 toc-link" data-title="Update an Entity Folder">Update an Entity Folder</a>
+                  </li>
+                  <li>
+                    <a href="#delete-an-entity-folder" class="toc-h2 toc-link" data-title="Delete an Entity Folder">Delete an Entity Folder</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#entity-types" class="toc-h1 toc-link" data-title="Entity Types">Entity Types</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-entity-types" class="toc-h2 toc-link" data-title="Get All Entity Types">Get All Entity Types</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-entity-type" class="toc-h2 toc-link" data-title="Get a Specific Entity Type">Get a Specific Entity Type</a>
+                  </li>
+                  <li>
+                    <a href="#create-an-entity-type" class="toc-h2 toc-link" data-title="Create an Entity Type">Create an Entity Type</a>
+                  </li>
+                  <li>
+                    <a href="#update-an-entity-type" class="toc-h2 toc-link" data-title="Update an Entity Type">Update an Entity Type</a>
+                  </li>
+                  <li>
+                    <a href="#delete-an-entity-type" class="toc-h2 toc-link" data-title="Delete an Entity Type">Delete an Entity Type</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#entity-items" class="toc-h1 toc-link" data-title="Entity Items">Entity Items</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-entity-items" class="toc-h2 toc-link" data-title="Get All Entity Items">Get All Entity Items</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-entity-item" class="toc-h2 toc-link" data-title="Get a Specific Entity Item">Get a Specific Entity Item</a>
+                  </li>
+                  <li>
+                    <a href="#create-an-entity-item" class="toc-h2 toc-link" data-title="Create an Entity Item">Create an Entity Item</a>
+                  </li>
+                  <li>
+                    <a href="#update-an-entity-item" class="toc-h2 toc-link" data-title="Update an Entity Item">Update an Entity Item</a>
+                  </li>
+                  <li>
+                    <a href="#delete-an-entity-item" class="toc-h2 toc-link" data-title="Delete an Entity Item">Delete an Entity Item</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#users" class="toc-h1 toc-link" data-title="Users">Users</a>
               <ul class="toc-list-h2">
                   <li>
@@ -3008,6 +3068,791 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>Number</td>
 <td>1</td>
 <td>The ID of the site to delete.</td>
+</tr>
+</tbody></table>
+<h1 id='entity-folders'>Entity Folders</h1><h2 id='get-all-entity-folders'>Get All Entity Folders</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-folders'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety folder"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Parent folder"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Child folder"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obi-Wan Kenobi"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obi.wan@jediknights.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entity item"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"labels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Label"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety folder"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Parent folder"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Child folder"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obi-Wan Kenobi"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obi.wan@jediknights.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entity item"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"labels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Label"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-folders?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-folders?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-folders?page=2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&amp;laquo; Previous"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-folders?page=1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-folders?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-folders?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Next &amp;raquo;"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-folders"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves all of your entity folders.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/entity-folders</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>The results page number to view. If omitted, the default is 1.</td>
+</tr>
+<tr>
+<td>users</td>
+<td>No</td>
+<td>Array</td>
+<td>1,2,3</td>
+<td>A list of user Ids, or a single Id</td>
+</tr>
+<tr>
+<td>entityItems</td>
+<td>No</td>
+<td>Array</td>
+<td>1,2,3</td>
+<td>A list of entity items Ids, or a single Id</td>
+</tr>
+<tr>
+<td>title</td>
+<td>No</td>
+<td>Text</td>
+<td>warehouse</td>
+<td>A string of text to try and find in the entity folders titles.</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-entity-folder'>Get a Specific Entity Folder</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-folders/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety folder"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Parent folder"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Child folder"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obi-Wan Kenobi"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obi.wan@jediknights.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entity item"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"labels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Label"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific Entity Folder.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/entity-folders/&lt;EntityFolderId&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityFolderId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the entity folder to retrieve.</td>
+</tr>
+</tbody></table>
+<h2 id='create-an-entity-folder'>Create an Entity Folder</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-folders'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","children":[1],"labels":["Label 1","Label 2"],"entity_items":[1,2,3],"users":[1,2,3]}'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates an Entity Folder.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/entity-folders</code></p>
+<h2 id='update-an-entity-folder'>Update an Entity Folder</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-folders/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","children":[1],"labels":["Label 1","Label 2"],"entity_items":[1,2,3],"users":[1,2,3]}'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint updates a specific Entity Folder.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>PUT https://public-api.lumiformapp.com/api/v2/entity-folders/&lt;EntityFolderId&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityFolderId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the Entity Folder to update.</td>
+</tr>
+</tbody></table>
+<h2 id='delete-an-entity-folder'>Delete an Entity Folder</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-folders/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint deletes a specific Entity Folder.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>DELETE https://public-api.lumiformapp.com/api/v2/entity-folders/&lt;EntityFolderId&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityFolderId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the Entity Folder to delete.</td>
+</tr>
+</tbody></table>
+<h1 id='entity-types'>Entity Types</h1><h2 id='get-all-entity-types'>Get All Entity Types</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning checklist"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about cleaning facility"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&amp;laquo; Previous"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Next &amp;raquo;"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves all of your entity types.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/entity-types</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>The results page number to view. If omitted, the default is 1.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>No</td>
+<td>Text</td>
+<td>warehouse</td>
+<td>A string of text to try and find in the entity types titles.</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-entity-type'>Get a Specific Entity Type</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific Entity Type.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/entity-types/&lt;EntityTypeId&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityTypeId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the entity type to retrieve.</td>
+</tr>
+</tbody></table>
+<h2 id='create-an-entity-type'>Create an Entity Type</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","description":"Some description"}'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates an Entity Type.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/entity-types</code></p>
+<h2 id='update-an-entity-type'>Update an Entity Type</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","description":"Some description"}'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint updates a specific Entity Type.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>PUT https://public-api.lumiformapp.com/api/v2/entity-types/&lt;EntityTypeId&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityTypeId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the Entity Type to update.</td>
+</tr>
+</tbody></table>
+<h2 id='delete-an-entity-type'>Delete an Entity Type</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint deletes a specific Entity Type.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>DELETE https://public-api.lumiformapp.com/api/v2/entity-types/&lt;EntityTypeId&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityTypeId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the Entity Type to delete.</td>
+</tr>
+</tbody></table>
+<h1 id='entity-items'>Entity Items</h1><h2 id='get-all-entity-items'>Get All Entity Items</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety related entities"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@lumiformapp.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning checklist"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about cleaning facility"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning related entities"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@lumiformapp.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&amp;laquo; Previous"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Next &amp;raquo;"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves all of your entity items.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/entity-items</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>The results page number to view. If omitted, the default is 1.</td>
+</tr>
+<tr>
+<td>users</td>
+<td>No</td>
+<td>Array</td>
+<td>1,2,3</td>
+<td>A list of user Ids, or a single Id</td>
+</tr>
+<tr>
+<td>entityType</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>Single Entity Type Id</td>
+</tr>
+<tr>
+<td>title</td>
+<td>No</td>
+<td>Text</td>
+<td>warehouse</td>
+<td>A string of text to try and find in the entity items titles.</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-entity-item'>Get a Specific Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning related entities"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@lumiformapp.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific Entity Item.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/entity-items/&lt;EntityItemId&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityItemId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the entity item to retrieve.</td>
+</tr>
+</tbody></table>
+<h2 id='create-an-entity-item'>Create an Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> <span class="se">\</span>
+  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1}'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates an Entity Item.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/entity-items</code></p>
+<h2 id='update-an-entity-item'>Update an Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> <span class="se">\</span>
+  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1}'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint updates a specific Entity Item.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>PUT https://public-api.lumiformapp.com/api/v2/entity-items/&lt;EntityItemId&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityItemId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the Entity Item to update.</td>
+</tr>
+</tbody></table>
+<h2 id='delete-an-entity-item'>Delete an Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint deletes a specific Entity Item.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>DELETE https://public-api.lumiformapp.com/api/v2/entity-items/&lt;EntityItemId&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntityItemId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the Entity Item to delete.</td>
 </tr>
 </tbody></table>
 <h1 id='users'>Users</h1><h2 id='get-all-users'>Get All Users</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
