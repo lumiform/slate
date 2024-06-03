@@ -370,3 +370,41 @@ title | No | Text | archives | A string of text to try and find in the question 
 response | No | Text | No | A string of text to try and find in the question response.
 negative | No | Boolean | true | Toggle filtering for negatively answered questions.
 
+## Export a Specific Form to desired format
+
+```shell
+curl --request GET \
+  --url 'https://public-api.lumiformapp.com/api/v2/forms/1/export?format=pdf&timezone=Europe/Berlin' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' 
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": "<base64-encoded-string>",
+  "format": "pdf"
+}
+```
+
+This endpoint retrieves a report, encoded in base64 string, for specific form.
+
+### HTTP Request
+
+`GET https://public-api.lumiformapp.com/api/v2/forms/<FormId>/export`
+
+### URL Parameters
+
+Parameter | Required | Type | Example | Description
+--------- | ------- | ---- | ------- | -----------
+FormId | Yes | Number | 1 | The ID of the form to retrieve.
+
+### Query Parameters
+
+Parameter | Required | Type     | Example       | Description
+--------- |----------|----------|---------------| -----------
+format    | yes      | Text     | pdf           | Format for export. Supported formats: pdf|docx|csv|xlsx
+timezone  | yes      | Timezone | Europe/Berlin | Timezone to be used for exporting dates.
+
