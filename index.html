@@ -354,6 +354,9 @@
                   <li>
                     <a href="#get-questions-of-an-form" class="toc-h2 toc-link" data-title="Get Questions of an Form">Get Questions of an Form</a>
                   </li>
+                  <li>
+                    <a href="#export-a-specific-form-to-desired-format" class="toc-h2 toc-link" data-title="Export a Specific Form to desired format">Export a Specific Form to desired format</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -390,6 +393,9 @@
                   </li>
                   <li>
                     <a href="#get-questions-of-an-inspection" class="toc-h2 toc-link" data-title="Get Questions of an Inspection">Get Questions of an Inspection</a>
+                  </li>
+                  <li>
+                    <a href="#export-a-specific-inspection-to-desired-format" class="toc-h2 toc-link" data-title="Export a Specific Inspection to desired format">Export a Specific Inspection to desired format</a>
                   </li>
               </ul>
           </li>
@@ -1415,6 +1421,66 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 <td>Toggle filtering for negatively answered questions.</td>
 </tr>
 </tbody></table>
+<h2 id='export-a-specific-form-to-desired-format'>Export a Specific Form to desired format</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/forms/1/export?format=pdf&amp;timezone=Europe/Berlin'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;base64-encoded-string&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pdf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a report, encoded in base64 string, for specific form.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/forms/&lt;FormId&gt;/export</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>FormId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The ID of the form to retrieve.</td>
+</tr>
+</tbody></table>
+<h3 id='query-parameters-3'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>format</td>
+<td>yes</td>
+<td>Text</td>
+<td>pdf</td>
+<td>Format for export. Supported formats: pdf</td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>yes</td>
+<td>Timezone</td>
+<td>Europe/Berlin</td>
+<td>Timezone to be used for exporting dates.</td>
+</tr>
+</tbody></table>
 <h1 id='actions'>Actions</h1><h2 id='get-all-actions'>Get All Actions</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/actions'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
@@ -2295,6 +2361,66 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 <td>Boolean</td>
 <td>true</td>
 <td>Toggle filtering for negatively answered questions.</td>
+</tr>
+</tbody></table>
+<h2 id='export-a-specific-inspection-to-desired-format'>Export a Specific Inspection to desired format</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/inspections/1/export?format=pdf&amp;timezone=Europe/Berlin'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;base64-encoded-string&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pdf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a report, encoded in base64 string, for specific inspection.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/inspections/&lt;InspectionId&gt;/export</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>InspectionId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The ID of the inspection to retrieve.</td>
+</tr>
+</tbody></table>
+<h3 id='query-parameters-3'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>format</td>
+<td>yes</td>
+<td>Text</td>
+<td>pdf</td>
+<td>Format for export. Supported formats: pdf</td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>yes</td>
+<td>Timezone</td>
+<td>Europe/Berlin</td>
+<td>Timezone to be used for exporting dates.</td>
 </tr>
 </tbody></table>
 <h1 id='issues'>Issues</h1>
