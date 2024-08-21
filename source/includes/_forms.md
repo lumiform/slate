@@ -224,7 +224,15 @@ curl --request GET \
       "id": 1,
       "title": "Safety checklist",
       "status": "active"
-    }
+    },
+    "photos": [
+      {
+        "id": "d0ada570-c2db-4cc7-bb29-c18b6d1fef8e.jpeg",
+        "url": "https://assets.lumiformapp.com/image-public/d0ada570-c2db-4cc7-bb29-c18b6d1fef8e.jpeg?token=[your token here]",
+        "width": null,
+        "height": null
+      }
+    ]
   }
 }
 ```
