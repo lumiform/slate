@@ -273,6 +273,14 @@ curl --request GET \
       "percentage": 0,
       "is_negative": true,
       "notes": "Planet Kamino is missing from the archives.",
+      "photos": [
+        {
+          "id": "d0ada570-c2db-4cc7-bb29-c18b6d1fef8e.jpeg",
+          "url": "https://assets.lumiformapp.com/image-public/d0ada570-c2db-4cc7-bb29-c18b6d1fef8e.jpeg?token=[your token here]",
+          "width": 800,
+          "height": 802
+        }
+      ],
       "issues": [
         {
           "id": 2,
@@ -313,6 +321,7 @@ curl --request GET \
       "percentage": 100,
       "is_negative": false,
       "notes": null,
+      "photos": [],
       "issues": []
     }
   ],
