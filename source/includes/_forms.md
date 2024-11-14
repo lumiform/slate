@@ -404,6 +404,10 @@ curl --request GET \
 
 This endpoint retrieves a report, encoded in base64 string, for specific form.
 
+### CSV Export caveats
+
+CSV export contains direct links to photos however they are unauthorized for download. To download photos, you need to append query parameter with your token. The final URL should look like: `https://assets.lumiformapp.com/image-public/d0ada570-c2db-4cc7-bb29-c18b6d1fef8e.jpeg?token=[your token here]`
+
 ### HTTP Request
 
 `GET https://public-api.lumiformapp.com/api/v2/forms/<FormId>/export`
