@@ -19,6 +19,7 @@ curl --request GET \
     {
       "id": 1,
       "title": "Safety checklist",
+      "inspection_title": "Safety checklist",
       "assignees": [
         {
           "id": 1,
@@ -54,6 +55,7 @@ curl --request GET \
     {
       "id": 2,
       "title": "Lightsaber practice room materials checklist",
+      "inspection_title": "Safety checklist",
       "assignees": [
         {
           "id": 2,
@@ -159,19 +161,21 @@ This endpoint retrieves all of your forms.
 
 ### Query Parameters
 
-Parameter | Required | Type | Example | Description
---------- | ------- | ---- | ------- | -----------
-page | No | Number | 1 | The results page number to view. If omitted, the default is 1.
+Parameter | Required | Type | Example    | Description
+--------- | ------- | ---- |------------| -----------
+page | No | Number | 1          | The results page number to view. If omitted, the default is 1.
 conducted_from | No | Unix time | 1585589759 | The date from which to search for conducted forms.
 conducted_to | No | Unix time | 1630185200 | The date to which to search for conducted forms.
 due_from | No | Unix time | 1585589759 | The date from which to search for the due date of your forms.
 due_to | No | Unix time | 1630185200 | The date to which to search for the due date of your forms.
-users | No | Array | 1,2,3 | A list of user IDs, or a single ID, to search for forms they conducted.
-sites | No | Array | 1,2,3 | A list of site IDs, or a single ID, to search for forms where they were conducted.
+users | No | Array | 1,2,3      | A list of user IDs, or a single ID, to search for forms they conducted.
+sites | No | Array | 1,2,3      | A list of site IDs, or a single ID, to search for forms where they were conducted.
 statuses | No | Array | open,taken | A list of statuses, or a single status, to search forms in. **Allowed values:** *open*, *taken*, *closed*, *cant_do*.
-overdue | No | Boolean | true | Toggle filtering for overdue or not overdue forms.
-title | No | Text | warehouse | A string of text to try and find in the forms titles.
-checklist | No | Number | 1 | The ID of a checklist to search its conducted forms.
+overdue | No | Boolean | true       | Toggle filtering for overdue or not overdue forms.
+title | No | Text | warehouse  | A string of text to try and find in the forms titles.
+checklist | No | Number | 1          | The ID of a checklist to search its conducted forms.
+order_by | No | Text | id         | The field to order the results by. **Allowed values:** *id*, *conducted_at*.
+order_way | No | Text | ASC         | The field to order the results by. **Allowed values:** *ASC*, *DESC*.
 
 <aside class="success">
 Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your search to a certain time period!
@@ -194,6 +198,7 @@ curl --request GET \
   "data": {
     "id": 1,
     "title": "Safety checklist",
+    "inspection_title": "Safety checklist",
     "assignees": [
       {
         "id": 1,
