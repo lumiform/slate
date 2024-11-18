@@ -958,6 +958,7 @@ Inspection endpoints are deprecated and will be discontinued in the future. Plea
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"inspection_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"assignees"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -993,6 +994,7 @@ Inspection endpoints are deprecated and will be discontinued in the future. Plea
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lightsaber practice room materials checklist"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"inspection_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"assignees"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
@@ -1179,6 +1181,20 @@ Inspection endpoints are deprecated and will be discontinued in the future. Plea
 <td>1</td>
 <td>The ID of a checklist to search its conducted forms.</td>
 </tr>
+<tr>
+<td>order_by</td>
+<td>No</td>
+<td>Text</td>
+<td>id</td>
+<td>The field to order the results by. <strong>Allowed values:</strong> <em>id</em>, <em>conducted_at</em>.</td>
+</tr>
+<tr>
+<td>order_way</td>
+<td>No</td>
+<td>Text</td>
+<td>ASC</td>
+<td>The field to order the results by. <strong>Allowed values:</strong> <em>ASC</em>, <em>DESC</em>.</td>
+</tr>
 </tbody></table>
 
 <aside class="success">
@@ -1197,6 +1213,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
     </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"inspection_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"assignees"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -1453,6 +1470,8 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint retrieves a report, encoded in base64 string, for specific form.</p>
+<h3 id='csv-export-caveats'>CSV Export caveats</h3>
+<p>CSV export contains direct links to photos however they are unauthorized for download. To download photos, you need to append query parameter with your token. The final URL should look like: <code>https://assets.lumiformapp.com/image-public/d0ada570-c2db-4cc7-bb29-c18b6d1fef8e.jpeg?token=[your token here]</code></p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>GET https://public-api.lumiformapp.com/api/v2/forms/&lt;FormId&gt;/export</code></p>
 <h3 id='url-parameters-3'>URL Parameters</h3>
