@@ -254,7 +254,7 @@ Parameter | Required | Type | Example | Description
 --------- | ------- | ---- | ------- | -----------
 FormId | Yes | Number | 1 | The ID of the form to retrieve.
 
-## Get Questions of an Form
+## Get Questions of a Form
 
 ```shell
 curl --request GET \
@@ -272,6 +272,7 @@ curl --request GET \
     {
       "id": 1,
       "title": "Are the archives complete?",
+      "type": "list",
       "response": "No",
       "max_score": 1,
       "score": 0,
