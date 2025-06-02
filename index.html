@@ -352,7 +352,7 @@
                     <a href="#get-a-specific-form" class="toc-h2 toc-link" data-title="Get a Specific Form">Get a Specific Form</a>
                   </li>
                   <li>
-                    <a href="#get-questions-of-an-form" class="toc-h2 toc-link" data-title="Get Questions of an Form">Get Questions of an Form</a>
+                    <a href="#get-questions-of-a-form" class="toc-h2 toc-link" data-title="Get Questions of a Form">Get Questions of a Form</a>
                   </li>
                   <li>
                     <a href="#export-a-specific-form-to-desired-format" class="toc-h2 toc-link" data-title="Export a Specific Form to desired format">Export a Specific Form to desired format</a>
@@ -1277,7 +1277,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
 <td>The ID of the form to retrieve.</td>
 </tr>
 </tbody></table>
-<h2 id='get-questions-of-an-form'>Get Questions of an Form</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+<h2 id='get-questions-of-a-form'>Get Questions of a Form</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/forms/1/questions'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
@@ -1291,6 +1291,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Are the archives complete?"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"max_score"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"score"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
