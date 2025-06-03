@@ -237,7 +237,19 @@ curl --request GET \
         "width": null,
         "height": null
       }
-    ]
+    ],
+    "approval": {
+      "id": 29,
+      "status": "approved",
+      "comment": null,
+      "approver": {
+        "id": 4,
+        "name": "Jeff Hanneman",
+        "email": "jeff.hanneman@slayer.net",
+        "admin": 1
+      },
+      "updated_at": 1748878859
+    }
   }
 }
 ```
