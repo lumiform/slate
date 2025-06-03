@@ -54,7 +54,7 @@ curl --request GET \
       "approval": {
         "id": 30,
         "status": "approved",
-        "comment": null,
+        "comment": "my comment",
         "approver": {
           "id": 4,
           "name": "Jeff Hanneman",
@@ -265,7 +265,7 @@ curl --request GET \
     "approval": {
       "id": 29,
       "status": "approved",
-      "comment": null,
+      "comment": "my comment",
       "approver": {
         "id": 4,
         "name": "Jeff Hanneman",
