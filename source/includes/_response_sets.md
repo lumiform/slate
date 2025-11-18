@@ -205,7 +205,26 @@ curl --request POST \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --data '{"name":"Priority Levels","optionValues":[{"label":"High","value":"high","isActive":true},{"label":"Medium","value":"medium","isActive":true},{"label":"Low","value":"low","isActive":true}]}'
+  --data '{
+    "name": "Priority Levels",
+    "optionValues": [
+      {
+        "label": "High",
+        "value": "high",
+        "isActive": true
+      },
+      {
+        "label": "Medium",
+        "value": "medium",
+        "isActive": true
+      },
+      {
+        "label": "Low",
+        "value": "low",
+        "isActive": true
+      }
+    ]
+  }'
 ```
 
 > The above command returns JSON structured like this:
@@ -260,7 +279,22 @@ curl --request PUT \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --data '{"name":"Priority Levels Updated","optionValues":[{"id":1,"label":"High Updated","value":"high","isActive":true},{"label":"New Option","value":"new","isActive":true}]}'
+  --data '{
+    "name": "Priority Levels Updated",
+    "optionValues": [
+      {
+        "id": 1,
+        "label": "High Updated",
+        "value": "high",
+        "isActive": true
+      },
+      {
+        "label": "New Option",
+        "value": "new",
+        "isActive": true
+      }
+    ]
+  }'
 ```
 
 > The above command does not return any data
