@@ -22,6 +22,8 @@ Options:
 
 run_build() {
   bundle exec middleman build --clean
+  echo "developer.lumiformapp.com" > build/CNAME
+  touch build/.nojekyll
 }
 
 parse_args() {
