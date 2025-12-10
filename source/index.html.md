@@ -20,6 +20,7 @@ includes:
   - sites
   - entity_folders
   - entity_types
+  - response_sets
   - entity_items
   - users
 
