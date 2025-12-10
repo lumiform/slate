@@ -491,6 +491,26 @@
               </ul>
           </li>
           <li>
+            <a href="#entity-type-response-sets" class="toc-h1 toc-link" data-title="Entity Type Response Sets">Entity Type Response Sets</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-entity-type-response-sets" class="toc-h2 toc-link" data-title="Get All Entity Type Response Sets">Get All Entity Type Response Sets</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-entity-type-response-set" class="toc-h2 toc-link" data-title="Get a Specific Entity Type Response Set">Get a Specific Entity Type Response Set</a>
+                  </li>
+                  <li>
+                    <a href="#create-an-entity-type-response-set" class="toc-h2 toc-link" data-title="Create an Entity Type Response Set">Create an Entity Type Response Set</a>
+                  </li>
+                  <li>
+                    <a href="#update-an-entity-type-response-set" class="toc-h2 toc-link" data-title="Update an Entity Type Response Set">Update an Entity Type Response Set</a>
+                  </li>
+                  <li>
+                    <a href="#delete-an-entity-type-response-set" class="toc-h2 toc-link" data-title="Delete an Entity Type Response Set">Delete an Entity Type Response Set</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#entity-items" class="toc-h1 toc-link" data-title="Entity Items">Entity Items</a>
               <ul class="toc-list-h2">
                   <li>
@@ -3591,7 +3611,16 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>To include properties in the response, add the <code>include_properties</code> query parameter:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types?include_properties=true'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3648,9 +3677,80 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves all of your entity types.</p>
+<p>This endpoint retrieves all of your entity types. By default, properties are not included in the response. To include them, use the <code>include_properties=true</code> query parameter.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://public-api.lumiformapp.com/api/v2/entity-types</code></p>
+<h3 id='response-with-properties'>Response with Properties</h3>
+<p>When <code>include_properties=true</code> is included in the query string, the response will include a <code>properties</code> array for each entity type:</p>
+
+<blockquote>
+<p>Properties included in response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Location"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"allow_multi"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"option_set_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"allow_multi"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"option_values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inactive"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=1&amp;include_properties=true"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=2&amp;include_properties=true"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types?page=2&amp;include_properties=true"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-types"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Properties Field Details:</strong></p>
+
+<ul>
+<li><strong><code>id</code></strong> - The unique identifier of the property definition</li>
+<li><strong><code>label</code></strong> - The display label of the property</li>
+<li><strong><code>data_type</code></strong> - The type of property: <code>&quot;text&quot;</code> or <code>&quot;dropdown&quot;</code></li>
+<li><strong><code>allow_multi</code></strong> - Whether multiple values are allowed for this property</li>
+<li><strong><code>option_set_id</code></strong> - The ID of the option set (only present for dropdown-type properties)</li>
+<li><strong><code>option_values</code></strong> - Array of available option values (only present for dropdown-type properties). Each option value contains:
+
+<ul>
+<li><strong><code>id</code></strong> - The unique identifier of the option value</li>
+<li><strong><code>label</code></strong> - The display label of the option</li>
+</ul></li>
+</ul>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -3675,12 +3775,28 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>warehouse</td>
 <td>A string of text to try and find in the entity types titles.</td>
 </tr>
+<tr>
+<td>include_properties</td>
+<td>No</td>
+<td>Boolean</td>
+<td>true</td>
+<td>When set to <code>true</code>, includes property definitions for each entity type. Defaults to <code>false</code>.</td>
+</tr>
 </tbody></table>
 <h2 id='get-a-specific-entity-type'>Get a Specific Entity Type</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>To include properties in the response, add the <code>include_properties</code> query parameter:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types/1?include_properties=true'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3693,7 +3809,43 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves a specific Entity Type.</p>
+<blockquote>
+<p>When <code>include_properties=true</code> is included, the response will also contain a <code>properties</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Location"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"allow_multi"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"data_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"option_set_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"allow_multi"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"option_values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inactive"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific Entity Type. By default, properties are not included in the response. To include them, use the <code>include_properties=true</code> query parameter.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://public-api.lumiformapp.com/api/v2/entity-types/&lt;EntityTypeId&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -3714,12 +3866,40 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The Id of the entity type to retrieve.</td>
 </tr>
 </tbody></table>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>include_properties</td>
+<td>No</td>
+<td>Boolean</td>
+<td>true</td>
+<td>When set to <code>true</code>, includes property definitions for the entity type. Defaults to <code>false</code>.</td>
+</tr>
+</tbody></table>
 <h2 id='create-an-entity-type'>Create an Entity Type</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","description":"Some description"}'</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description"}'</span>
+</code></pre></div>
+<blockquote>
+<p>To create an entity type with property definitions, include the <code>properties</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","properties":[{"label":"Location","dataType":"text","allowMulti":false},{"label":"Status","dataType":"dropdown","optionSetId":1,"allowMulti":false}]}'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3731,12 +3911,99 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <p>This endpoint creates an Entity Type.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>POST https://public-api.lumiformapp.com/api/v2/entity-types</code></p>
+<h3 id='request-body-parameters'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Tatooine&quot;</td>
+<td>The title of the entity type.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>No</td>
+<td>String</td>
+<td>&quot;Some description&quot;</td>
+<td>The description of the entity type.</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>No</td>
+<td>Array</td>
+<td>See below</td>
+<td>Array of property definitions to create for this entity type.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Properties Array Structure:</strong></p>
+
+<p>Each property object in the <code>properties</code> array should contain:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>label</td>
+<td>Yes*</td>
+<td>String</td>
+<td>&quot;Location&quot;</td>
+<td>The display label of the property. Required when <code>properties</code> array is provided.</td>
+</tr>
+<tr>
+<td>dataType</td>
+<td>Yes*</td>
+<td>String</td>
+<td>&quot;text&quot; or &quot;dropdown&quot;</td>
+<td>The data type of the property. Must be either <code>&quot;text&quot;</code> or <code>&quot;dropdown&quot;</code>. Required when <code>properties</code> array is provided.</td>
+</tr>
+<tr>
+<td>optionSetId</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>The ID of the option set. Required when <code>dataType</code> is <code>&quot;dropdown&quot;</code>. Not used for <code>&quot;text&quot;</code> properties.</td>
+</tr>
+<tr>
+<td>allowMulti</td>
+<td>No</td>
+<td>Boolean</td>
+<td>false</td>
+<td>Whether multiple values are allowed for this property. Defaults to <code>false</code>.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Note:</strong> For dropdown properties, <code>optionSetId</code> is required. For text properties, <code>optionSetId</code> should not be provided.</p>
 <h2 id='update-an-entity-type'>Update an Entity Type</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","description":"Some description"}'</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description"}'</span>
+</code></pre></div>
+<blockquote>
+<p>To update an entity type with property definitions, include the <code>properties</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","properties":[{"id":5,"label":"Updated Location","dataType":"text","allowMulti":false},{"label":"New Status","dataType":"dropdown","optionSetId":1,"allowMulti":false}]}'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command does not return any data</p>
@@ -3763,11 +4030,95 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The Id of the Entity Type to update.</td>
 </tr>
 </tbody></table>
+<h3 id='request-body-parameters-2'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Tatooine&quot;</td>
+<td>The title of the entity type.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>No</td>
+<td>String</td>
+<td>&quot;Some description&quot;</td>
+<td>The description of the entity type.</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>No</td>
+<td>Array</td>
+<td>See below</td>
+<td>Array of property definitions to update or create for this entity type.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Properties Array Structure:</strong></p>
+
+<p>Each property object in the <code>properties</code> array should contain:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>No</td>
+<td>Number</td>
+<td>5</td>
+<td>The ID of an existing property to update. Omit to create a new property.</td>
+</tr>
+<tr>
+<td>label</td>
+<td>Yes*</td>
+<td>String</td>
+<td>&quot;Updated Location&quot;</td>
+<td>The display label of the property. Required when <code>properties</code> array is provided.</td>
+</tr>
+<tr>
+<td>dataType</td>
+<td>Yes*</td>
+<td>String</td>
+<td>&quot;text&quot; or &quot;dropdown&quot;</td>
+<td>The data type of the property. Must be either <code>&quot;text&quot;</code> or <code>&quot;dropdown&quot;</code>. Required when <code>properties</code> array is provided.</td>
+</tr>
+<tr>
+<td>optionSetId</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>The ID of the option set. Required when <code>dataType</code> is <code>&quot;dropdown&quot;</code>. Not used for <code>&quot;text&quot;</code> properties.</td>
+</tr>
+<tr>
+<td>allowMulti</td>
+<td>No</td>
+<td>Boolean</td>
+<td>false</td>
+<td>Whether multiple values are allowed for this property. Defaults to <code>false</code>.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Note:</strong> For dropdown properties, <code>optionSetId</code> is required. For text properties, <code>optionSetId</code> should not be provided. Include <code>id</code> to update an existing property, or omit it to create a new property.</p>
 <h2 id='delete-an-entity-type'>Delete an Entity Type</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> 
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command does not return any data</p>
@@ -3794,11 +4145,491 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The Id of the Entity Type to delete.</td>
 </tr>
 </tbody></table>
+<h1 id='entity-type-response-sets'>Entity Type Response Sets</h1><h2 id='get-all-entity-type-response-sets'>Get All Entity Type Response Sets</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/response-sets'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>To include option values in the response, add the <code>include_option_values</code> query parameter:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/response-sets?include_option_values=true'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Priority Levels"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status Options"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&amp;laquo; Previous"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Next &amp;raquo;"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves all of your entity type response sets. By default, option values are not included in the response. To include them, use the <code>include_option_values=true</code> query parameter.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/response-sets</code></p>
+<h3 id='response-with-option-values'>Response with Option Values</h3>
+<p>When <code>include_option_values=true</code> is included in the query string, the response will include an <code>option_values</code> array for each entity type response set:</p>
+
+<blockquote>
+<p>Option values included in response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Priority Levels"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"option_values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Medium"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Low"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=1&amp;include_option_values=true"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=2&amp;include_option_values=true"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets?page=2&amp;include_option_values=true"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/response-sets"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Option Values Field Details:</strong></p>
+
+<ul>
+<li><strong><code>id</code></strong> - The unique identifier of the option value</li>
+<li><strong><code>label</code></strong> - The display label of the option value</li>
+</ul>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>The results page number to view. If omitted, the default is 1.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>No</td>
+<td>Text</td>
+<td>priority</td>
+<td>A string of text to try and find in the entity type response set names.</td>
+</tr>
+<tr>
+<td>include_option_values</td>
+<td>No</td>
+<td>Boolean</td>
+<td>true</td>
+<td>When set to <code>true</code>, includes option values for each entity type response set. Defaults to <code>false</code>.</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-entity-type-response-set'>Get a Specific Entity Type Response Set</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/response-sets/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Priority Levels"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"option_values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Medium"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Low"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific Entity Type Response Set with its option values.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/response-sets/&lt;ResponseSetId&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ResponseSetId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the entity type response set to retrieve.</td>
+</tr>
+</tbody></table>
+<h2 id='create-an-entity-type-response-set'>Create an Entity Type Response Set</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/response-sets'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"name":"Priority Levels"}'</span>
+</code></pre></div>
+<blockquote>
+<p>To create an entity type response set with option values, include the <code>optionValues</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/response-sets'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{
+    "name": "Priority Levels",
+    "optionValues": [
+      {
+        "label": "High",
+        "value": "high",
+        "isActive": true
+      },
+      {
+        "label": "Medium",
+        "value": "medium",
+        "isActive": true
+      },
+      {
+        "label": "Low",
+        "value": "low",
+        "isActive": true
+      }
+    ]
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates an Entity Type Response Set.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/response-sets</code></p>
+<h3 id='request-body-parameters'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Priority Levels&quot;</td>
+<td>The name of the entity type response set. Must be unique within your organization.</td>
+</tr>
+<tr>
+<td>optionValues</td>
+<td>No</td>
+<td>Array</td>
+<td>See below</td>
+<td>Array of option values to create for this entity type response set.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Option Values Array Structure:</strong></p>
+
+<p>Each option value object in the <code>optionValues</code> array should contain:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>label</td>
+<td>Yes*</td>
+<td>String</td>
+<td>&quot;High&quot;</td>
+<td>The display label of the option value. Required when <code>optionValues</code> array is provided.</td>
+</tr>
+<tr>
+<td>value</td>
+<td>No</td>
+<td>String</td>
+<td>&quot;high&quot;</td>
+<td>The value of the option. Can be null.</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>No</td>
+<td>Boolean</td>
+<td>true</td>
+<td>Whether the option value is active. Defaults to <code>true</code>.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Note:</strong> The <code>name</code> field must be unique within your organization. If an entity type response set with the same name already exists, the request will fail with a validation error.</p>
+<h2 id='update-an-entity-type-response-set'>Update an Entity Type Response Set</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/response-sets/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"name":"Priority Levels Updated"}'</span>
+</code></pre></div>
+<blockquote>
+<p>To update an entity type response set with option values, include the <code>optionValues</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/response-sets/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{
+    "name": "Priority Levels Updated",
+    "optionValues": [
+      {
+        "id": 1,
+        "label": "High Updated",
+        "value": "high",
+        "isActive": true
+      },
+      {
+        "label": "New Option",
+        "value": "new",
+        "isActive": true
+      }
+    ]
+  }'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint updates a specific Entity Type Response Set. When updating option values, existing values not included in the request will be deleted.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>PUT https://public-api.lumiformapp.com/api/v2/response-sets/&lt;ResponseSetId&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ResponseSetId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the Entity Type Response Set to update.</td>
+</tr>
+</tbody></table>
+<h3 id='request-body-parameters-2'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Priority Levels Updated&quot;</td>
+<td>The name of the entity type response set. Must be unique within your organization.</td>
+</tr>
+<tr>
+<td>optionValues</td>
+<td>No</td>
+<td>Array</td>
+<td>See below</td>
+<td>Array of option values to update or create for this entity type response set.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Option Values Array Structure:</strong></p>
+
+<p>Each option value object in the <code>optionValues</code> array should contain:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>The ID of an existing option value to update. Omit to create a new option value.</td>
+</tr>
+<tr>
+<td>label</td>
+<td>Yes*</td>
+<td>String</td>
+<td>&quot;High Updated&quot;</td>
+<td>The display label of the option value. Required when <code>optionValues</code> array is provided.</td>
+</tr>
+<tr>
+<td>value</td>
+<td>No</td>
+<td>String</td>
+<td>&quot;high&quot;</td>
+<td>The value of the option. Can be null.</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>No</td>
+<td>Boolean</td>
+<td>true</td>
+<td>Whether the option value is active.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Note:</strong> The <code>name</code> field must be unique within your organization. Include <code>id</code> to update an existing option value, or omit it to create a new option value. Existing option values not included in the <code>optionValues</code> array will be deleted.</p>
+<h2 id='delete-an-entity-type-response-set'>Delete an Entity Type Response Set</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/response-sets/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint deletes a specific Entity Type Response Set. Note that you cannot delete an entity type response set if it is being used by any entity type properties.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>DELETE https://public-api.lumiformapp.com/api/v2/response-sets/&lt;ResponseSetId&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ResponseSetId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The Id of the Entity Type Response Set to delete.</td>
+</tr>
+</tbody></table>
 <h1 id='entity-items'>Entity Items</h1><h2 id='get-all-entity-items'>Get All Entity Items</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> 
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>To include property values in the response, add the <code>include_properties</code> query parameter:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items?include_properties=true'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3881,9 +4712,89 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves all of your entity items.</p>
+<p>This endpoint retrieves all of your entity items. By default, property values are not included in the response. To include them, use the <code>include_properties=true</code> query parameter.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://public-api.lumiformapp.com/api/v2/entity-items</code></p>
+<h3 id='response-with-properties'>Response with Properties</h3>
+<p>When <code>include_properties=true</code> is included in the query string, the response will include a <code>properties</code> array for each entity item:</p>
+
+<blockquote>
+<p>Properties included in response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety related entities"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@lumiformapp.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"entity_type_property_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some text value"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"option_values"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"entity_type_property_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value_text"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"option_values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Option 1"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Option 2"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=1&amp;include_properties=true"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=2&amp;include_properties=true"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items?page=2&amp;include_properties=true"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/entity-items"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Properties Field Details:</strong></p>
+
+<ul>
+<li><strong><code>id</code></strong> - The unique identifier of the property value</li>
+<li><strong><code>entity_type_property_id</code></strong> - The ID of the property definition this value belongs to</li>
+<li><strong><code>value_text</code></strong> - The text value (for text-type properties). <code>null</code> for dropdown properties</li>
+<li><strong><code>option_values</code></strong> - Array of selected option values (for dropdown-type properties). <code>null</code> or omitted for text properties. Each option value contains:
+
+<ul>
+<li><strong><code>id</code></strong> - The unique identifier of the option value</li>
+<li><strong><code>label</code></strong> - The display label of the option</li>
+</ul></li>
+</ul>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -3922,12 +4833,28 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>warehouse</td>
 <td>A string of text to try and find in the entity items titles.</td>
 </tr>
+<tr>
+<td>include_properties</td>
+<td>No</td>
+<td>Boolean</td>
+<td>true</td>
+<td>When set to <code>true</code>, includes property values for each entity item. Defaults to <code>false</code>.</td>
+</tr>
 </tbody></table>
 <h2 id='get-a-specific-entity-item'>Get a Specific Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> 
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>To include property values in the response, add the <code>include_properties</code> query parameter:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1?include_properties=true'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3953,7 +4880,54 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves a specific Entity Item.</p>
+<blockquote>
+<p>When <code>include_properties=true</code> is included, the response will also contain a <code>properties</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning related entities"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@lumiformapp.com"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"entity_type_property_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"value_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some text value"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"option_values"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"entity_type_property_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"value_text"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"option_values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Option 1"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Option 2"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific Entity Item. By default, property values are not included in the response. To include them, use the <code>include_properties=true</code> query parameter.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://public-api.lumiformapp.com/api/v2/entity-items/&lt;EntityItemId&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -3974,12 +4948,40 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The Id of the entity item to retrieve.</td>
 </tr>
 </tbody></table>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>include_properties</td>
+<td>No</td>
+<td>Boolean</td>
+<td>true</td>
+<td>When set to <code>true</code>, includes property values for the entity item. Defaults to <code>false</code>.</td>
+</tr>
+</tbody></table>
 <h2 id='create-an-entity-item'>Create an Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> <span class="se">\</span>
-  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1}'</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1}'</span>
+</code></pre></div>
+<blockquote>
+<p>To create an entity item with property values, include the <code>properties</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1,"properties":[{"entityTypePropertyId":5,"valueText":"Some text value"},{"entityTypePropertyId":6,"optionValueIds":[10,11]}]}'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -3991,12 +4993,106 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <p>This endpoint creates an Entity Item.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>POST https://public-api.lumiformapp.com/api/v2/entity-items</code></p>
+<h3 id='request-body-parameters'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Tatooine&quot;</td>
+<td>The title of the entity item.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>No</td>
+<td>String</td>
+<td>&quot;Some description&quot;</td>
+<td>The description of the entity item.</td>
+</tr>
+<tr>
+<td>entity_type_id</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The ID of the entity type this item belongs to.</td>
+</tr>
+<tr>
+<td>users</td>
+<td>No</td>
+<td>Array</td>
+<td>[1, 2, 3]</td>
+<td>Array of user IDs assigned to this entity item.</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>No</td>
+<td>Array</td>
+<td>See below</td>
+<td>Array of property values to set for this entity item.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Properties Array Structure:</strong></p>
+
+<p>Each property object in the <code>properties</code> array should contain:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>entityTypePropertyId</td>
+<td>Yes*</td>
+<td>Number</td>
+<td>5</td>
+<td>The ID of the entity type property. Required when <code>properties</code> array is provided.</td>
+</tr>
+<tr>
+<td>valueText</td>
+<td>No</td>
+<td>String</td>
+<td>&quot;Some text value&quot;</td>
+<td>The text value for text-type properties. Use this for properties with <code>data_type: &quot;text&quot;</code>.</td>
+</tr>
+<tr>
+<td>optionValueIds</td>
+<td>No</td>
+<td>Array</td>
+<td>[10, 11]</td>
+<td>Array of option value IDs for dropdown-type properties. Use this for properties with <code>data_type: &quot;dropdown&quot;</code>.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Note:</strong> For text properties, provide <code>valueText</code>. For dropdown properties, provide <code>optionValueIds</code>. You should not provide both for the same property.</p>
 <h2 id='update-an-entity-item'>Update an Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> <span class="se">\</span>
-  <span class="nt">--d</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1}'</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1}'</span>
+</code></pre></div>
+<blockquote>
+<p>To update an entity item with property values, include the <code>properties</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1,"properties":[{"entityTypePropertyId":5,"valueText":"Updated text value"},{"entityTypePropertyId":6,"optionValueIds":[10,11]}]}'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command does not return any data</p>
@@ -4023,11 +5119,95 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The Id of the Entity Item to update.</td>
 </tr>
 </tbody></table>
+<h3 id='request-body-parameters-2'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Tatooine&quot;</td>
+<td>The title of the entity item.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>No</td>
+<td>String</td>
+<td>&quot;Some description&quot;</td>
+<td>The description of the entity item.</td>
+</tr>
+<tr>
+<td>entity_type_id</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The ID of the entity type this item belongs to.</td>
+</tr>
+<tr>
+<td>users</td>
+<td>No</td>
+<td>Array</td>
+<td>[1, 2, 3]</td>
+<td>Array of user IDs assigned to this entity item.</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>No</td>
+<td>Array</td>
+<td>See below</td>
+<td>Array of property values to set for this entity item.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Properties Array Structure:</strong></p>
+
+<p>Each property object in the <code>properties</code> array should contain:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Item</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>entityTypePropertyId</td>
+<td>Yes*</td>
+<td>Number</td>
+<td>5</td>
+<td>The ID of the entity type property. Required when <code>properties</code> array is provided.</td>
+</tr>
+<tr>
+<td>valueText</td>
+<td>No</td>
+<td>String</td>
+<td>&quot;Updated text value&quot;</td>
+<td>The text value for text-type properties. Use this for properties with <code>data_type: &quot;text&quot;</code>.</td>
+</tr>
+<tr>
+<td>optionValueIds</td>
+<td>No</td>
+<td>Array</td>
+<td>[10, 11]</td>
+<td>Array of option value IDs for dropdown-type properties. Use this for properties with <code>data_type: &quot;dropdown&quot;</code>.</td>
+</tr>
+</tbody></table>
+
+<p><strong>Note:</strong> For text properties, provide <code>valueText</code>. For dropdown properties, provide <code>optionValueIds</code>. You should not provide both for the same property.</p>
 <h2 id='delete-an-entity-item'>Delete an Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
-  <span class="nt">--header</span> <span class="s1">'Content-Item: application/json'</span> 
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command does not return any data</p>
