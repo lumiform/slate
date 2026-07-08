@@ -138,8 +138,19 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --d '{"name": "User name", "email": "user@mail.com", "role": 123456}'
 ```
-> Mandatory fields: All
- 
+> Mandatory fields: name, email, role
+
+> To have the user receive a "Set your password" email, set `send_invite_email` to `true`:
+
+```shell
+curl --request POST \
+  --url 'https://public-api.lumiformapp.com/api/v2/users' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --d '{"name": "User name", "email": "user@mail.com", "role": 123456, "send_invite_email": true}'
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -153,6 +164,15 @@ This endpoint creates a user.
 ### HTTP Request
 
 `POST https://public-api.lumiformapp.com/api/v2/users`
+
+### Request Body Parameters
+
+| Parameter          | Required | Type    | Example | Description                                                                          |
+|---------------------|----------|---------|---------|---------------------------------------------------------------------------------------|
+| name                | Yes      | String  | "User name" | The name of the user.                                                             |
+| email               | Yes      | String  | "user@mail.com" | The email of the user.                                                         |
+| role                | Yes      | Number  | 123456  | The ID of the role to assign to the user.                                             |
+| send_invite_email   | No       | Boolean | true    | Whether the user should receive a "Set your password" email. Defaults to `false`. |
 
 ## Update a User
 
