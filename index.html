@@ -5384,8 +5384,18 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
   <span class="nt">--d</span> <span class="s1">'{"name": "User name", "email": "user@mail.com", "role": 123456}'</span>
 </code></pre></div>
 <blockquote>
-<p>Mandatory fields: All</p>
+<p>Mandatory fields: name, email, role</p>
 
+<p>To have the user receive a &quot;Set your password&quot; email, set <code>send_invite_email</code> to <code>true</code>:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/users'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--d</span> <span class="s1">'{"name": "User name", "email": "user@mail.com", "role": 123456, "send_invite_email": true}'</span>
+</code></pre></div>
+<blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -5395,6 +5405,45 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <p>This endpoint creates a user.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>POST https://public-api.lumiformapp.com/api/v2/users</code></p>
+<h3 id='request-body-parameters'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;User name&quot;</td>
+<td>The name of the user.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;user@mail.com&quot;</td>
+<td>The email of the user.</td>
+</tr>
+<tr>
+<td>role</td>
+<td>Yes</td>
+<td>Number</td>
+<td>123456</td>
+<td>The ID of the role to assign to the user.</td>
+</tr>
+<tr>
+<td>send_invite_email</td>
+<td>No</td>
+<td>Boolean</td>
+<td>true</td>
+<td>Whether the user should receive a &quot;Set your password&quot; email. Defaults to <code>false</code>.</td>
+</tr>
+</tbody></table>
 <h2 id='update-a-user'>Update a User</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/users/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
