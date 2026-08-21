@@ -263,6 +263,30 @@ This endpoint updates a specific Entity Folder.
 |----------------|----------|--------|---------|----------------------------------------|
 | EntityFolderId | Yes      | Number | 1       | The Id of the Entity Folder to update. |
 
+<aside class="warning">
+This endpoint is a <strong>full replace</strong>. Any of <code>users</code>, <code>entity_items</code>,
+<code>children</code> and <code>labels</code> that you omit is treated as an empty list, and everything
+in it is detached. To change only the title, <code>GET</code> the folder first and send the current arrays
+back with your change.
+</aside>
+
+**Note:** If your organization uses seat management, this request can fail with
+`validation.entityFolderSeatManagement.noFreeSeats` on `users` when the resulting assignments exceed the
+folder's remaining seats, or with `validation.entityFolderSeatManagement.limitedFolderCannotBeNested` on
+`children` when a folder that carries a seat limit would become nested. See [Errors](#validation-errors).
+
+> A folder update that exceeds the folder's remaining seats returns:
+
+```json
+{
+  "code": "api.validation.errors",
+  "message": "The given data was invalid.",
+  "errors": {
+    "users": ["validation.entityFolderSeatManagement.noFreeSeats"]
+  }
+}
+```
+
 ## Delete an Entity Folder
 
 ```shell
@@ -286,3 +310,20 @@ This endpoint deletes a specific Entity Folder.
 | Parameter      | Required | Type   | Example | Description                            |
 |----------------|----------|--------|---------|----------------------------------------|
 | EntityFolderId | Yes      | Number | 1       | The Id of the Entity Folder to delete. |
+
+**Note:** If your organization uses seat management, a delete can fail with
+`validation.entityFolderSeatManagement.noFreeSeats`. Deleting a folder moves the users who reached it to
+whichever remaining folder can charge them, and that folder may have no capacity left. A `DELETE` carries
+no request body, so the error is reported on `users`. See [Errors](#validation-errors).
+
+> A delete that leaves users with no folder able to charge them returns:
+
+```json
+{
+  "code": "api.validation.errors",
+  "message": "The given data was invalid.",
+  "errors": {
+    "users": ["validation.entityFolderSeatManagement.noFreeSeats"]
+  }
+}
+```

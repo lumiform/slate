@@ -1,5 +1,10 @@
 # Entity Items
 
+**Note:** If your organization uses seat management, create, update and delete requests on entity items can
+fail with `validation.entityFolderSeatManagement.noFreeSeats`, reported on `users`, when the resulting
+assignments exceed the remaining seats of a folder that carries a seat limit. See
+[Errors](#validation-errors).
+
 ## Get All Entity Items
 
 ```shell
