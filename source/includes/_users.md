@@ -174,6 +174,11 @@ This endpoint creates a user.
 | role                | Yes      | Number  | 123456  | The ID of the role to assign to the user.                                             |
 | send_invite_email   | No       | Boolean | true    | Whether the user should receive a "Set your password" email. Defaults to `false`. |
 
+**Note:** If your organization uses seat management, the `role` you assign can make the new user consume a
+folder seat. When no seat is available, the request fails with
+`validation.entityFolderSeatManagement.noFreeSeats` reported on `role`, and the user is not created. See
+[Errors](#validation-errors).
+
 ## Update a User
 
 ```shell
@@ -199,6 +204,26 @@ This endpoint updates a specific user.
 | Parameter | Required | Type   | Example | Description                   |
 |-----------|----------|--------|---------|-------------------------------|
 | UserId    | Yes      | Number | 1       | The ID of the user to update. |
+
+**Note:** If your organization uses seat management, changing a user's `role` can make that user consume a
+folder seat. When no seat is available in the folders the user can reach, the request fails with
+`validation.entityFolderSeatManagement.noFreeSeats` reported on `role`. See [Errors](#validation-errors).
+
+> A role change that leaves the user with no available seat returns:
+
+```json
+{
+  "message": "{\"type\":\"validation.entityFolderSeatManagement.noFreeSeats\",\"parameters\":[]}",
+  "errors": [
+    {
+      "type": "validation.entityFolderSeatManagement.noFreeSeats",
+      "parameters": [],
+      "field": "role"
+    }
+  ],
+  "code": 422
+}
+```
 
 ## Delete a User
 
