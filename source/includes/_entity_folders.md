@@ -279,11 +279,31 @@ folder's remaining seats, or with `validation.entityFolderSeatManagement.limited
 
 ```json
 {
-  "code": "api.validation.errors",
-  "message": "The given data was invalid.",
-  "errors": {
-    "users": ["validation.entityFolderSeatManagement.noFreeSeats"]
-  }
+  "message": "{\"type\":\"validation.entityFolderSeatManagement.noFreeSeats\",\"parameters\":[]}",
+  "errors": [
+    {
+      "type": "validation.entityFolderSeatManagement.noFreeSeats",
+      "parameters": [],
+      "field": "users"
+    }
+  ],
+  "code": 422
+}
+```
+
+> Nesting a folder that still carries a seat limit returns:
+
+```json
+{
+  "message": "{\"type\":\"validation.entityFolderSeatManagement.limitedFolderCannotBeNested\",\"parameters\":[]}",
+  "errors": [
+    {
+      "type": "validation.entityFolderSeatManagement.limitedFolderCannotBeNested",
+      "parameters": [],
+      "field": "children"
+    }
+  ],
+  "code": 422
 }
 ```
 
@@ -320,10 +340,14 @@ no request body, so the error is reported on `users`. See [Errors](#validation-e
 
 ```json
 {
-  "code": "api.validation.errors",
-  "message": "The given data was invalid.",
-  "errors": {
-    "users": ["validation.entityFolderSeatManagement.noFreeSeats"]
-  }
+  "message": "{\"type\":\"validation.entityFolderSeatManagement.noFreeSeats\",\"parameters\":[]}",
+  "errors": [
+    {
+      "type": "validation.entityFolderSeatManagement.noFreeSeats",
+      "parameters": [],
+      "field": "users"
+    }
+  ],
+  "code": 422
 }
 ```

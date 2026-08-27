@@ -213,11 +213,15 @@ folder seat. When no seat is available in the folders the user can reach, the re
 
 ```json
 {
-  "code": "api.validation.errors",
-  "message": "The given data was invalid.",
-  "errors": {
-    "role": ["validation.entityFolderSeatManagement.noFreeSeats"]
-  }
+  "message": "{\"type\":\"validation.entityFolderSeatManagement.noFreeSeats\",\"parameters\":[]}",
+  "errors": [
+    {
+      "type": "validation.entityFolderSeatManagement.noFreeSeats",
+      "parameters": [],
+      "field": "role"
+    }
+  ],
+  "code": 422
 }
 ```
 
