@@ -381,6 +381,11 @@
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#validation-errors" class="toc-h2 toc-link" data-title="Validation Errors">Validation Errors</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#inspections" class="toc-h1 toc-link" data-title="Inspections">Inspections</a>
@@ -1960,7 +1965,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </tr>
 <tr>
 <td>422</td>
-<td>Unprocessable Entity -- Your filters are incorrectly specified. Check the examples!</td>
+<td>Unprocessable Entity -- Your filters or your request body are incorrectly specified. See Validation Errors below.</td>
 </tr>
 <tr>
 <td>429</td>
@@ -1975,6 +1980,129 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
+<h2 id='validation-errors'>Validation Errors</h2>
+<blockquote>
+<p>A <code>422</code> response is structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.code</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.code"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fieldName"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>A <code>422</code> response carries an <code>errors</code> array of error objects. Each object has <code>type</code>, <code>parameters</code> and
+<code>field</code>. <code>errors</code> is always a numeric array — never an object keyed by field name.</p>
+
+<p>Match on <code>errors[].type</code>, not on <code>message</code>. The <code>message</code> string encodes the first error and may change
+presentation; the <code>type</code> codes will not.</p>
+<h3 id='seat-limit-codes'>Seat limit codes</h3>
+<p>Your organization&#39;s parent can enable <strong>seat management</strong> for entity folders. When it is enabled, a
+top-level entity folder can carry a seat limit, set from the Lumiform web app. While a limit is in force,
+writes that change who can reach that folder are checked against the capacity of the resulting state.</p>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>validation.entityFolderSeatManagement.exceedsChildAllocation</code></td>
+<td><code>seatLimit</code></td>
+<td>The seat limit is higher than the parent&#39;s remaining allocation allows. Lower the limit, or free capacity elsewhere.</td>
+</tr>
+<tr>
+<td><code>validation.entityFolderSeatManagement.belowChargedUsers</code></td>
+<td><code>seatLimit</code></td>
+<td>The seat limit is below the number of users already charged to the folder. Raise the limit, or free seats first.</td>
+</tr>
+<tr>
+<td><code>validation.entityFolderSeatManagement.noFreeSeats</code></td>
+<td><code>users</code>, or <code>role</code> on user writes</td>
+<td>The resulting assignments cannot all be charged against the folder&#39;s remaining seats. Assign fewer users, or free a seat by removing someone else, or raise the limit in the web app.</td>
+</tr>
+<tr>
+<td><code>validation.entityFolderSeatManagement.limitedFolderCannotBeNested</code></td>
+<td><code>children</code></td>
+<td>A folder that carries a seat limit cannot become a child of another folder. Remove the limit in the web app first, then nest it.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p><code>exceedsChildAllocation</code>:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.entityFolderSeatManagement.exceedsChildAllocation</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.entityFolderSeatManagement.exceedsChildAllocation"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seatLimit"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><code>belowChargedUsers</code>:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.entityFolderSeatManagement.belowChargedUsers</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.entityFolderSeatManagement.belowChargedUsers"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seatLimit"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><code>noFreeSeats</code>:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.entityFolderSeatManagement.noFreeSeats</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.entityFolderSeatManagement.noFreeSeats"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"users"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p><code>limitedFolderCannotBeNested</code>:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.entityFolderSeatManagement.limitedFolderCannotBeNested</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.entityFolderSeatManagement.limitedFolderCannotBeNested"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"children"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>These codes can be returned by write requests on entity folders, entity items, entity types and users.
+They are business errors: correct the request before retrying, and do not retry it unchanged.</p>
+
+<aside class="notice">
+Seat limits are managed in the Lumiform web app. They are not readable or writable through the Public API,
+and no request field of yours is involved -- a request that does not change folder reachability is never
+affected. Organizations without seat management enabled never receive these codes.
+</aside>
 <h1 id='inspections'>Inspections</h1>
 <aside class="warning">
 Inspection endpoints are deprecated and will be discontinued in the future. Please refer to Forms and Actions documentation.
@@ -3576,7 +3704,49 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The Id of the Entity Folder to update.</td>
 </tr>
 </tbody></table>
-<h2 id='delete-an-entity-folder'>Delete an Entity Folder</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
+
+<aside class="warning">
+This endpoint is a <strong>full replace</strong>. Any of <code>users</code>, <code>entity_items</code>,
+<code>children</code> and <code>labels</code> that you omit is treated as an empty list, and everything
+in it is detached. To change only the title, <code>GET</code> the folder first and send the current arrays
+back with your change.
+</aside>
+
+<p><strong>Note:</strong> If your organization uses seat management, this request can fail with
+<code>validation.entityFolderSeatManagement.noFreeSeats</code> on <code>users</code> when the resulting assignments exceed the
+folder&#39;s remaining seats, or with <code>validation.entityFolderSeatManagement.limitedFolderCannotBeNested</code> on
+<code>children</code> when a folder that carries a seat limit would become nested. See <a href="#validation-errors">Errors</a>.</p>
+
+<blockquote>
+<p>A folder update that exceeds the folder&#39;s remaining seats returns:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.entityFolderSeatManagement.noFreeSeats</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.entityFolderSeatManagement.noFreeSeats"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"users"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Nesting a folder that still carries a seat limit returns:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.entityFolderSeatManagement.limitedFolderCannotBeNested</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.entityFolderSeatManagement.limitedFolderCannotBeNested"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"children"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='delete-an-entity-folder'>Delete an Entity Folder</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-folders/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
@@ -3607,7 +3777,32 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The Id of the Entity Folder to delete.</td>
 </tr>
 </tbody></table>
-<h1 id='entity-types'>Entity Types</h1><h2 id='get-all-entity-types'>Get All Entity Types</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+
+<p><strong>Note:</strong> If your organization uses seat management, a delete can fail with
+<code>validation.entityFolderSeatManagement.noFreeSeats</code>. Deleting a folder moves the users who reached it to
+whichever remaining folder can charge them, and that folder may have no capacity left. A <code>DELETE</code> carries
+no request body, so the error is reported on <code>users</code>. See <a href="#validation-errors">Errors</a>.</p>
+
+<blockquote>
+<p>A delete that leaves users with no folder able to charge them returns:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.entityFolderSeatManagement.noFreeSeats</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.entityFolderSeatManagement.noFreeSeats"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"users"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h1 id='entity-types'>Entity Types</h1>
+<p><strong>Note:</strong> If your organization uses seat management, create, update and delete requests on entity types can
+fail with <code>validation.entityFolderSeatManagement.noFreeSeats</code>, reported on <code>users</code>, when the resulting
+assignments exceed the remaining seats of a folder that carries a seat limit. See
+<a href="#validation-errors">Errors</a>.</p>
+<h2 id='get-all-entity-types'>Get All Entity Types</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-types'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
@@ -4616,7 +4811,12 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The Id of the Entity Type Response Set to delete.</td>
 </tr>
 </tbody></table>
-<h1 id='entity-items'>Entity Items</h1><h2 id='get-all-entity-items'>Get All Entity Items</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+<h1 id='entity-items'>Entity Items</h1>
+<p><strong>Note:</strong> If your organization uses seat management, create, update and delete requests on entity items can
+fail with <code>validation.entityFolderSeatManagement.noFreeSeats</code>, reported on <code>users</code>, when the resulting
+assignments exceed the remaining seats of a folder that carries a seat limit. See
+<a href="#validation-errors">Errors</a>.</p>
+<h2 id='get-all-entity-items'>Get All Entity Items</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
@@ -5444,6 +5644,11 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>Whether the user should receive a &quot;Set your password&quot; email. Defaults to <code>false</code>.</td>
 </tr>
 </tbody></table>
+
+<p><strong>Note:</strong> If your organization uses seat management, the <code>role</code> you assign can make the new user consume a
+folder seat. When no seat is available, the request fails with
+<code>validation.entityFolderSeatManagement.noFreeSeats</code> reported on <code>role</code>, and the user is not created. See
+<a href="#validation-errors">Errors</a>.</p>
 <h2 id='update-a-user'>Update a User</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/users/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
@@ -5478,7 +5683,26 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The ID of the user to update.</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-user'>Delete a User</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
+
+<p><strong>Note:</strong> If your organization uses seat management, changing a user&#39;s <code>role</code> can make that user consume a
+folder seat. When no seat is available in the folders the user can reach, the request fails with
+<code>validation.entityFolderSeatManagement.noFreeSeats</code> reported on <code>role</code>. See <a href="#validation-errors">Errors</a>.</p>
+
+<blockquote>
+<p>A role change that leaves the user with no available seat returns:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">validation.entityFolderSeatManagement.noFreeSeats</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">parameters</span><span class="se">\"</span><span class="s2">:[]}"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"validation.entityFolderSeatManagement.noFreeSeats"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"role"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">422</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='delete-a-user'>Delete a User</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/users/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
