@@ -4,9 +4,9 @@ Schedules create repeating inspections and todos from form templates.
 
 List and retrieve responses include the stored `rrule` string. Create and update send an editor `rule` object, not that string. To change recurrence, [decode](#decode-an-rrule) the stored `rrule`, edit the returned `rule`, map related resource objects to IDs, and send the complete schedule through [Update a Schedule](#update-a-schedule).
 
-Reads return related form templates, users, groups, and entity items as resource objects. Writes use arrays of those resources' IDs. Reminder objects from retrieve are already in the update shape.
+Reads return related form templates, users, groups, and entity items as resource objects. Writes use arrays of those resources' IDs. Retrieved reminders include the derived read-only `time_shift` field. When writing reminders, send `id` where applicable, `type`, `direction`, `scale`, and `value`; `time_shift` does not need to be sent.
 
-`timezone` is an IANA name such as `Europe/Berlin`. Send it on create and update. Legacy reads may return `null`. Clients never send or receive a timezone identifier.
+`timezone` is an IANA name such as `Europe/Berlin`. Send it on create and update. The Public API resolves it internally. Legacy reads may return `null`. Clients never send or receive a timezone identifier.
 
 Related form templates, users, groups, entity items, and reminders must be accessible to your organization. Invalid or inaccessible IDs return a 422 validation error. A schedule that belongs to another organization cannot be retrieved, updated, or deleted.
 
@@ -202,7 +202,7 @@ curl --request GET \
 
 This endpoint retrieves a specific schedule, including related resources and reminders.
 
-Do not send this payload unchanged to update. Map `form_templates`, `assignees`, and `supervisors` resource objects to arrays of IDs. Reminder objects are already in the update shape.
+Do not send this payload unchanged to update. Map `form_templates`, `assignees`, and `supervisors` resource objects to arrays of IDs. Retrieved reminders include the derived read-only `time_shift` field; when writing, send `id` where applicable, `type`, `direction`, `scale`, and `value`.
 
 ### HTTP Request
 
@@ -230,6 +230,7 @@ Every [index](#get-all-schedules) field, plus:
 | supervisors.users                  | Array   | Supervising users (`id`, `name`, `email`, `admin`).                                                  |
 | supervisors.groups                 | Array   | Supervising groups (`id`, `name`).                                                                   |
 | reminders                          | Array   | Reminders with `id`, `type`, `direction`, `scale`, `value`, and `time_shift`.                        |
+| reminders[].time_shift             | Number  | Derived read-only offset in minutes. Negative means before; positive means after. Not a timezone offset. |
 
 A schedule from another organization returns 403. An unknown or deleted schedule returns 404.
 
@@ -241,7 +242,7 @@ curl --request POST \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --data '{"title":"Temple opening","due_in":90,"expire_after_days":7,"separate_todo_for_all_users":false,"entity_item_specific_assignments":false,"timezone":"Europe/Berlin","form_templates":[1018907909],"assignees":{"users":[868746486],"groups":[868746478],"entity_items":[412578903],"all_entity_items":false},"supervisors":{"users":[87913847],"groups":[]},"rule":{"start":1730117785,"repeat":"daily","interval":1},"reminders":[{"type":"available","direction":"before","scale":"hour","value":2,"time_shift":-120}]}'
+  --data '{"title":"Temple opening","due_in":90,"expire_after_days":7,"separate_todo_for_all_users":false,"entity_item_specific_assignments":false,"timezone":"Europe/Berlin","form_templates":[1018907909],"assignees":{"users":[868746486],"groups":[868746478],"entity_items":[412578903],"all_entity_items":false},"supervisors":{"users":[87913847],"groups":[]},"rule":{"start":1730117785,"repeat":"daily","interval":1},"reminders":[{"type":"available","direction":"before","scale":"hour","value":2}]}'
 ```
 
 > Request body:
@@ -275,8 +276,7 @@ curl --request POST \
       "type": "available",
       "direction": "before",
       "scale": "hour",
-      "value": 2,
-      "time_shift": -120
+      "value": 2
     }
   ]
 }
@@ -305,7 +305,7 @@ This endpoint creates a schedule. Send `form_templates` and `reminders` even whe
 | expire_after_days                    | No       | Number or null  | 7               | Extra days after each inspection due date before it expires. `0`–`365`.     |
 | separate_todo_for_all_users          | Yes      | Boolean         | false           | When `true`, each assignee receives a separate todo and inspection.         |
 | entity_item_specific_assignments     | Yes      | Boolean         | false           | When `true`, assignments are specific to the selected entity items.         |
-| timezone                             | Yes      | String          | "Europe/Berlin" | IANA timezone name. Missing or unknown values return 422.                   |
+| timezone                             | Yes      | String          | "Europe/Berlin" | IANA timezone name. Unknown values return 422. Omitting it also returns 422. |
 | form_templates                       | Yes      | Array           | [1018907909]    | Form template IDs. `[]` is valid.                                           |
 | assignees                            | No       | Object or null  | See example     | Assignee users, groups, entity items, and `all_entity_items`.               |
 | assignees.users                      | No       | Array or null   | [868746486]     | User IDs.                                                                   |
@@ -326,9 +326,10 @@ Each reminder object contains:
 | direction  | Yes      | String | "before"    | `before` or `after`.                             |
 | scale      | Yes      | String | "hour"      | `month`, `week`, `day`, `hour`, or `minute`.     |
 | value      | Yes      | Number | 2           | Amount in the given scale.                       |
-| time_shift | Yes      | Number | -120        | Shift in minutes. Negative is before; positive is after. |
 
-> A missing or unknown timezone returns:
+The server derives the reminder minute offset from `direction`, `scale`, and `value`. Do not send `time_shift` on create or update.
+
+> An unknown timezone returns:
 
 ```json
 {
@@ -340,6 +341,8 @@ Each reminder object contains:
   }
 }
 ```
+
+Omitting required `timezone` also returns 422 with an error on `timezone`.
 
 > An inaccessible related ID returns:
 
@@ -444,7 +447,7 @@ curl --request PUT \
   --header 'Authorization: Bearer [your token here]' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
-  --data '{"title":"Temple opening","due_in":90,"expire_after_days":7,"separate_todo_for_all_users":false,"entity_item_specific_assignments":false,"timezone":"Europe/Berlin","form_templates":[1018907909],"assignees":{"users":[868746486],"groups":[868746478],"entity_items":[412578903],"all_entity_items":false},"supervisors":{"users":[87913847],"groups":[]},"rule":{"start":1730117785,"repeat":"custom","interval":1,"frequency":"weekly","weekly":["MO","WE"]},"reminders":[{"id":576577251,"type":"available","direction":"before","scale":"hour","value":2,"time_shift":-120}]}'
+  --data '{"title":"Temple opening","due_in":90,"expire_after_days":7,"separate_todo_for_all_users":false,"entity_item_specific_assignments":false,"timezone":"Europe/Berlin","form_templates":[1018907909],"assignees":{"users":[868746486],"groups":[868746478],"entity_items":[412578903],"all_entity_items":false},"supervisors":{"users":[87913847],"groups":[]},"rule":{"start":1730117785,"repeat":"custom","interval":1,"frequency":"weekly","weekly":["MO","WE"]},"reminders":[{"id":576577251,"type":"available","direction":"before","scale":"hour","value":2}]}'
 ```
 
 > Request body. Include every field you want to keep, including `form_templates`, `reminders`, and `timezone`:
@@ -481,8 +484,7 @@ curl --request PUT \
       "type": "available",
       "direction": "before",
       "scale": "hour",
-      "value": 2,
-      "time_shift": -120
+      "value": 2
     }
   ]
 }
@@ -490,7 +492,7 @@ curl --request PUT \
 
 > The above command does not return any data
 
-This endpoint fully replaces a schedule. The request body matches [Create a Schedule](#create-a-schedule), with one difference for reminders: `id` is optional. An existing reminder ID updates that reminder. Omitting `id` creates a reminder. Reminders left out of the array are removed.
+This endpoint fully replaces a schedule. PATCH is not supported. Use PUT and send the complete writable representation. The request body matches [Create a Schedule](#create-a-schedule), with one difference for reminders: `id` is optional. An existing reminder ID updates that reminder and must belong to the schedule being updated. Omitting `id` creates a reminder. Reminders left out of the array are removed.
 
 `form_templates: []` and `reminders: []` clear those collections. `timezone` is required. Do not send `rrule` or `status`.
 
