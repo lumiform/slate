@@ -301,7 +301,7 @@ This endpoint creates a schedule. Send `form_templates` and `reminders` even whe
 | Parameter                            | Required | Type            | Example         | Description                                                                 |
 |--------------------------------------|----------|-----------------|-----------------|-----------------------------------------------------------------------------|
 | title                                | No       | String or null  | "Temple opening"| The schedule title.                                                         |
-| due_in                               | Yes      | Number          | 90              | Minutes after each occurrence starts until the inspection is due.           |
+| due_in                               | Yes      | Number          | 90              | Integer number of minutes after each occurrence starts until the inspection is due. Must be `>= 0`. |
 | expire_after_days                    | No       | Number or null  | 7               | Extra days after each inspection due date before it expires. `0`–`365`.     |
 | separate_todo_for_all_users          | Yes      | Boolean         | false           | When `true`, each assignee receives a separate todo and inspection.         |
 | entity_item_specific_assignments     | Yes      | Boolean         | false           | When `true`, assignments are specific to the selected entity items.         |
