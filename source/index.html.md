@@ -23,6 +23,7 @@ includes:
   - response_sets
   - entity_items
   - users
+  - schedules
 
 search: true
 
