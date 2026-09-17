@@ -555,6 +555,32 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#schedules" class="toc-h1 toc-link" data-title="Schedules">Schedules</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-schedules" class="toc-h2 toc-link" data-title="Get All Schedules">Get All Schedules</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-schedule" class="toc-h2 toc-link" data-title="Get a Specific Schedule">Get a Specific Schedule</a>
+                  </li>
+                  <li>
+                    <a href="#create-a-schedule" class="toc-h2 toc-link" data-title="Create a Schedule">Create a Schedule</a>
+                  </li>
+                  <li>
+                    <a href="#recurrence-rule" class="toc-h2 toc-link" data-title="Recurrence Rule">Recurrence Rule</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-schedule" class="toc-h2 toc-link" data-title="Update a Schedule">Update a Schedule</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-schedule" class="toc-h2 toc-link" data-title="Delete a Schedule">Delete a Schedule</a>
+                  </li>
+                  <li>
+                    <a href="#decode-an-rrule" class="toc-h2 toc-link" data-title="Decode an RRULE">Decode an RRULE</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='https://admin.lumiformapp.com/public-api'>Go to API Management Page</a></li>
@@ -5733,7 +5759,875 @@ folder seat. When no seat is available in the folders the user can reach, the re
 <td>The ID of the user to delete.</td>
 </tr>
 </tbody></table>
+<h1 id='schedules'>Schedules</h1>
+<p>Schedules create repeating inspections and todos from form templates.</p>
 
+<p>List and retrieve responses include the stored <code>rrule</code> string. Create and update send an editor <code>rule</code> object, not that string. To change recurrence, <a href="#decode-an-rrule">decode</a> the stored <code>rrule</code>, edit the returned <code>rule</code>, map related resource objects to IDs, and send the complete schedule through <a href="#update-a-schedule">Update a Schedule</a>.</p>
+
+<p>Reads return related form templates, users, groups, and entity items as resource objects. Writes use arrays of those resources&#39; IDs. Retrieved reminders include the derived read-only <code>time_shift</code> field. When writing reminders, send <code>id</code> where applicable, <code>type</code>, <code>direction</code>, <code>scale</code>, and <code>value</code>; <code>time_shift</code> does not need to be sent.</p>
+
+<p><code>timezone</code> is an IANA name such as <code>Europe/Berlin</code>. Send it on create and update. The Public API resolves it internally. Legacy reads may return <code>null</code>. Clients never send or receive a timezone identifier.</p>
+
+<p>Related form templates, users, groups, entity items, and reminders must be accessible to your organization. Invalid or inaccessible IDs return a 422 validation error. A schedule that belongs to another organization cannot be retrieved, updated, or deleted.</p>
+
+<p>All IDs in requests and responses are Public API IDs. <code>created_at</code> and <code>updated_at</code> are Unix timestamps.</p>
+
+<p>A complete pass against a test organization is: <a href="#create-a-schedule">create</a> a schedule, <a href="#get-all-schedules">list</a> it, <a href="#get-a-specific-schedule">retrieve</a> it, <a href="#decode-an-rrule">decode</a> its <code>rrule</code>, edit the returned <code>rule</code>, map related resource objects to IDs, <a href="#update-a-schedule">replace</a> the schedule, then <a href="#delete-a-schedule">delete</a> it.</p>
+<h2 id='get-all-schedules'>Get All Schedules</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/schedules'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">739184205</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temple opening"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"due_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expire_after_days"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Berlin"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"rrule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DTSTART:20241028T121625Z</span><span class="se">\n</span><span class="s2">RRULE:FREQ=DAILY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">739184206</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Archive review"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"inactive"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"due_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expire_after_days"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"rrule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DTSTART:20241028T121625Z</span><span class="se">\n</span><span class="s2">RRULE:FREQ=YEARLY;COUNT=1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"first"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/schedules?page=1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/schedules?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prev"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/schedules?page=2"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"current_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"last_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&amp;laquo; Previous"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/schedules?page=1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/schedules?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/schedules?page=2"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Next &amp;raquo;"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"active"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://public-api.lumiformapp.com/api/v2/schedules"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"per_page"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves the schedules in your organization. Results use the standard paginated <code>data</code>, <code>links</code>, and <code>meta</code> envelope.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/schedules</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>No</td>
+<td>Number</td>
+<td>1</td>
+<td>The results page number to view. If omitted, the default is 1.</td>
+</tr>
+</tbody></table>
+<h3 id='response-fields'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Number</td>
+<td>The schedule ID.</td>
+</tr>
+<tr>
+<td>title</td>
+<td>String or null</td>
+<td>The schedule title.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td><code>active</code> or <code>inactive</code>.</td>
+</tr>
+<tr>
+<td>due_in</td>
+<td>Number</td>
+<td>Minutes after each occurrence starts until the inspection is due.</td>
+</tr>
+<tr>
+<td>expire_after_days</td>
+<td>Number or null</td>
+<td>Extra days after each inspection due date before it expires.</td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>String or null</td>
+<td>IANA timezone name. <code>null</code> on some legacy schedules.</td>
+</tr>
+<tr>
+<td>rrule</td>
+<td>String</td>
+<td>The stored recurrence string.</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>Number</td>
+<td>Unix timestamp.</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>Number</td>
+<td>Unix timestamp.</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-schedule'>Get a Specific Schedule</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/schedules/739184205'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">739184205</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temple opening"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"due_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"expire_after_days"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Berlin"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"rrule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DTSTART:20241028T121625Z</span><span class="se">\n</span><span class="s2">RRULE:FREQ=DAILY"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"separate_todo_for_all_users"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"entity_item_specific_assignments"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"form_templates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1018907909</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"assignees"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">868746486</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Obi-Wan Kenobi"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"obi.wan@jediknights.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">868746478</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jedi Order"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">412578903</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temple of Coruscant"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"all_entity_items"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"supervisors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">87913847</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yoda"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yoda@jediknights.com"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"reminders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">576577251</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"available"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"before"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"scale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hour"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"time_shift"</span><span class="p">:</span><span class="w"> </span><span class="mi">-120</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific schedule, including related resources and reminders.</p>
+
+<p>Do not send this payload unchanged to update. Map <code>form_templates</code>, <code>assignees</code>, and <code>supervisors</code> resource objects to arrays of IDs. Retrieved reminders include the derived read-only <code>time_shift</code> field; when writing, send <code>id</code> where applicable, <code>type</code>, <code>direction</code>, <code>scale</code>, and <code>value</code>.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/schedules/&lt;ScheduleId&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ScheduleId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>739184205</td>
+<td>The ID of the schedule to retrieve.</td>
+</tr>
+</tbody></table>
+<h3 id='additional-response-fields'>Additional Response Fields</h3>
+<p>Every <a href="#get-all-schedules">index</a> field, plus:</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>separate_todo_for_all_users</td>
+<td>Boolean</td>
+<td>When <code>true</code>, each assignee receives a separate todo and inspection.</td>
+</tr>
+<tr>
+<td>entity_item_specific_assignments</td>
+<td>Boolean</td>
+<td>When <code>true</code>, assignments are specific to the selected entity items.</td>
+</tr>
+<tr>
+<td>form_templates</td>
+<td>Array</td>
+<td>Form templates on the schedule. Each object has <code>id</code>, <code>title</code>, and <code>status</code>.</td>
+</tr>
+<tr>
+<td>assignees.users</td>
+<td>Array</td>
+<td>Assigned users (<code>id</code>, <code>name</code>, <code>email</code>, <code>admin</code>).</td>
+</tr>
+<tr>
+<td>assignees.groups</td>
+<td>Array</td>
+<td>Assigned groups (<code>id</code>, <code>name</code>).</td>
+</tr>
+<tr>
+<td>assignees.entity_items</td>
+<td>Array</td>
+<td>Assigned entity items (<code>id</code>, <code>title</code>, <code>description</code>).</td>
+</tr>
+<tr>
+<td>assignees.all_entity_items</td>
+<td>Boolean</td>
+<td>When <code>true</code>, the schedule applies to all entity items.</td>
+</tr>
+<tr>
+<td>supervisors.users</td>
+<td>Array</td>
+<td>Supervising users (<code>id</code>, <code>name</code>, <code>email</code>, <code>admin</code>).</td>
+</tr>
+<tr>
+<td>supervisors.groups</td>
+<td>Array</td>
+<td>Supervising groups (<code>id</code>, <code>name</code>).</td>
+</tr>
+<tr>
+<td>reminders</td>
+<td>Array</td>
+<td>Reminders with <code>id</code>, <code>type</code>, <code>direction</code>, <code>scale</code>, <code>value</code>, and <code>time_shift</code>.</td>
+</tr>
+<tr>
+<td>reminders[].time_shift</td>
+<td>Number</td>
+<td>Derived read-only offset in minutes. Negative means before; positive means after. Not a timezone offset.</td>
+</tr>
+</tbody></table>
+
+<p>A schedule from another organization returns 403. An unknown or deleted schedule returns 404.</p>
+<h2 id='create-a-schedule'>Create a Schedule</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/schedules'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Temple opening","due_in":90,"expire_after_days":7,"separate_todo_for_all_users":false,"entity_item_specific_assignments":false,"timezone":"Europe/Berlin","form_templates":[1018907909],"assignees":{"users":[868746486],"groups":[868746478],"entity_items":[412578903],"all_entity_items":false},"supervisors":{"users":[87913847],"groups":[]},"rule":{"start":1730117785,"repeat":"daily","interval":1},"reminders":[{"type":"available","direction":"before","scale":"hour","value":2}]}'</span>
+</code></pre></div>
+<blockquote>
+<p>Request body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temple opening"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"due_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expire_after_days"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"separate_todo_for_all_users"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"entity_item_specific_assignments"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Berlin"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"form_templates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1018907909</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"assignees"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">868746486</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">868746478</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">412578903</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"all_entity_items"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"supervisors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">87913847</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"rule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"daily"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"reminders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"available"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"before"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hour"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">739184205</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates a schedule. Send <code>form_templates</code> and <code>reminders</code> even when they are empty arrays. Do not send <code>rrule</code> or <code>status</code>. Do not send reminder <code>id</code> on create.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/schedules</code></p>
+<h3 id='request-body-parameters'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>title</td>
+<td>No</td>
+<td>String or null</td>
+<td>&quot;Temple opening&quot;</td>
+<td>The schedule title.</td>
+</tr>
+<tr>
+<td>due_in</td>
+<td>Yes</td>
+<td>Number</td>
+<td>90</td>
+<td>Integer number of minutes after each occurrence starts until the inspection is due. Must be <code>&gt;= 0</code>.</td>
+</tr>
+<tr>
+<td>expire_after_days</td>
+<td>No</td>
+<td>Number or null</td>
+<td>7</td>
+<td>Extra days after each inspection due date before it expires. <code>0</code>–<code>365</code>.</td>
+</tr>
+<tr>
+<td>separate_todo_for_all_users</td>
+<td>Yes</td>
+<td>Boolean</td>
+<td>false</td>
+<td>When <code>true</code>, each assignee receives a separate todo and inspection.</td>
+</tr>
+<tr>
+<td>entity_item_specific_assignments</td>
+<td>Yes</td>
+<td>Boolean</td>
+<td>false</td>
+<td>When <code>true</code>, assignments are specific to the selected entity items.</td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;Europe/Berlin&quot;</td>
+<td>IANA timezone name. Unknown values return 422. Omitting it also returns 422.</td>
+</tr>
+<tr>
+<td>form_templates</td>
+<td>Yes</td>
+<td>Array</td>
+<td>[1018907909]</td>
+<td>Form template IDs. <code>[]</code> is valid.</td>
+</tr>
+<tr>
+<td>assignees</td>
+<td>No</td>
+<td>Object or null</td>
+<td>See example</td>
+<td>Assignee users, groups, entity items, and <code>all_entity_items</code>.</td>
+</tr>
+<tr>
+<td>assignees.users</td>
+<td>No</td>
+<td>Array or null</td>
+<td>[868746486]</td>
+<td>User IDs.</td>
+</tr>
+<tr>
+<td>assignees.groups</td>
+<td>No</td>
+<td>Array or null</td>
+<td>[868746478]</td>
+<td>Group IDs.</td>
+</tr>
+<tr>
+<td>assignees.entity_items</td>
+<td>No</td>
+<td>Array or null</td>
+<td>[412578903]</td>
+<td>Entity item IDs.</td>
+</tr>
+<tr>
+<td>assignees.all_entity_items</td>
+<td>No</td>
+<td>Boolean</td>
+<td>false</td>
+<td>When <code>true</code>, the schedule applies to all entity items.</td>
+</tr>
+<tr>
+<td>supervisors</td>
+<td>No</td>
+<td>Object or null</td>
+<td>See example</td>
+<td>Supervisor users and groups.</td>
+</tr>
+<tr>
+<td>supervisors.users</td>
+<td>No</td>
+<td>Array or null</td>
+<td>[87913847]</td>
+<td>User IDs.</td>
+</tr>
+<tr>
+<td>supervisors.groups</td>
+<td>No</td>
+<td>Array or null</td>
+<td>[]</td>
+<td>Group IDs.</td>
+</tr>
+<tr>
+<td>rule</td>
+<td>Yes</td>
+<td>Object</td>
+<td>See below</td>
+<td>Editor recurrence object. See <a href="#recurrence-rule">Recurrence Rule</a>.</td>
+</tr>
+<tr>
+<td>reminders</td>
+<td>Yes</td>
+<td>Array</td>
+<td>See example</td>
+<td>Reminder objects. <code>[]</code> is valid. Do not include <code>id</code>.</td>
+</tr>
+</tbody></table>
+
+<p>Each reminder object contains:</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;available&quot;</td>
+<td>Reminder type, such as <code>available</code> or <code>due</code>.</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;before&quot;</td>
+<td><code>before</code> or <code>after</code>.</td>
+</tr>
+<tr>
+<td>scale</td>
+<td>Yes</td>
+<td>String</td>
+<td>&quot;hour&quot;</td>
+<td><code>month</code>, <code>week</code>, <code>day</code>, <code>hour</code>, or <code>minute</code>.</td>
+</tr>
+<tr>
+<td>value</td>
+<td>Yes</td>
+<td>Number</td>
+<td>2</td>
+<td>Amount in the given scale.</td>
+</tr>
+</tbody></table>
+
+<p>The server derives the reminder minute offset from <code>direction</code>, <code>scale</code>, and <code>value</code>. Do not send <code>time_shift</code> on create or update.</p>
+
+<blockquote>
+<p>An unknown timezone returns:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The given data was invalid."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"The selected timezone is invalid."</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Omitting required <code>timezone</code> also returns 422 with an error on <code>timezone</code>.</p>
+
+<blockquote>
+<p>An inaccessible related ID returns:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The given data was invalid."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"form_templates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"The selected form templates is invalid."</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='recurrence-rule'>Recurrence Rule</h2>
+<p>Create and update require a <code>rule</code> object. Retrieve returns the stored <code>rrule</code> string instead of this object.</p>
+
+<p>Supported non-custom <code>repeat</code> values are <code>daily</code>, <code>weekday</code>, <code>weekly</code>, <code>monthly</code>, <code>yearly</code>, and <code>no-repeat</code>. Custom rules use <code>repeat</code> of <code>custom</code> with <code>frequency</code> of <code>weekly</code> or <code>monthly</code>.</p>
+
+<p><code>start</code> is a Unix timestamp. <code>interval</code> is required.</p>
+
+<blockquote>
+<p>Daily:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"daily"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Weekday:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weekday"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Does not repeat:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no-repeat"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Custom weekly. <code>weekly</code> is a list of <code>MO</code>, <code>TU</code>, <code>WE</code>, <code>TH</code>, <code>FR</code>, <code>SA</code>, <code>SU</code>:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weekly"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"weekly"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"MO"</span><span class="p">,</span><span class="w"> </span><span class="s2">"WE"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Custom monthly. <code>monthly.day</code> is a weekday code, <code>day</code>, <code>weekday</code>, or <code>weekend-day</code>. <code>monthly.setpos</code> is the occurrence in the month:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"monthly"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"monthly"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"day"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MO"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"setpos"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Custom monthly on a weekend day:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"monthly"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"monthly"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"day"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weekend-day"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"setpos"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>These are the editor shapes Lumiform already accepts. The API is not a comprehensive RFC RRULE validator.</p>
+<h2 id='update-a-schedule'>Update a Schedule</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/schedules/739184205'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Temple opening","due_in":90,"expire_after_days":7,"separate_todo_for_all_users":false,"entity_item_specific_assignments":false,"timezone":"Europe/Berlin","form_templates":[1018907909],"assignees":{"users":[868746486],"groups":[868746478],"entity_items":[412578903],"all_entity_items":false},"supervisors":{"users":[87913847],"groups":[]},"rule":{"start":1730117785,"repeat":"custom","interval":1,"frequency":"weekly","weekly":["MO","WE"]},"reminders":[{"id":576577251,"type":"available","direction":"before","scale":"hour","value":2}]}'</span>
+</code></pre></div>
+<blockquote>
+<p>Request body. Include every field you want to keep, including <code>form_templates</code>, <code>reminders</code>, and <code>timezone</code>:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temple opening"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"due_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expire_after_days"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"separate_todo_for_all_users"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"entity_item_specific_assignments"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Berlin"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"form_templates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1018907909</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"assignees"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">868746486</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">868746478</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">412578903</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"all_entity_items"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"supervisors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">87913847</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"rule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weekly"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"weekly"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"MO"</span><span class="p">,</span><span class="w"> </span><span class="s2">"WE"</span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"reminders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">576577251</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"available"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"direction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"before"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"scale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hour"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint fully replaces a schedule. PATCH is not supported. Use PUT and send the complete writable representation. The request body matches <a href="#create-a-schedule">Create a Schedule</a>, with one difference for reminders: <code>id</code> is optional. An existing reminder ID updates that reminder and must belong to the schedule being updated. Omitting <code>id</code> creates a reminder. Reminders left out of the array are removed.</p>
+
+<p><code>form_templates: []</code> and <code>reminders: []</code> clear those collections. <code>timezone</code> is required. Do not send <code>rrule</code> or <code>status</code>.</p>
+
+<p>A schedule from another organization returns 403. An unknown or deleted schedule returns 404.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>PUT https://public-api.lumiformapp.com/api/v2/schedules/&lt;ScheduleId&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ScheduleId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>739184205</td>
+<td>The ID of the schedule to update.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Clearing templates and reminders:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temple opening"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"due_in"</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expire_after_days"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"separate_todo_for_all_users"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"entity_item_specific_assignments"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timezone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Europe/Berlin"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"form_templates"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"assignees"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">868746486</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">868746478</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">412578903</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"all_entity_items"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"supervisors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">87913847</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"rule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"daily"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"reminders"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='delete-a-schedule'>Delete a Schedule</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> DELETE <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/schedules/739184205'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command does not return any data</p>
+</blockquote>
+
+<p>This endpoint deletes a specific schedule.</p>
+
+<p>A schedule from another organization returns 403. An unknown or deleted schedule returns 404.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>DELETE https://public-api.lumiformapp.com/api/v2/schedules/&lt;ScheduleId&gt;</code></p>
+<h3 id='url-parameters-3'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ScheduleId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>739184205</td>
+<td>The ID of the schedule to delete.</td>
+</tr>
+</tbody></table>
+<h2 id='decode-an-rrule'>Decode an RRULE</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/rrules/decode'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"rrule":"DTSTART:20241028T121625Z\nRRULE:FREQ=DAILY;BYDAY=MO,WE"}'</span>
+</code></pre></div>
+<blockquote>
+<p>Request body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"rrule"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DTSTART:20241028T121625Z</span><span class="se">\n</span><span class="s2">RRULE:FREQ=DAILY;BYDAY=MO,WE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"rule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">1730117785</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"repeat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"custom"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"frequency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"weekly"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"weekly"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"MO"</span><span class="p">,</span><span class="w"> </span><span class="s2">"WE"</span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint turns a stored <code>rrule</code> string into the editor <code>rule</code> object used by create and update. Custom weekly rules return <code>weekly</code> as a list of weekday codes, ready to send back on update.</p>
+
+<p>Use this flow to edit a schedule:</p>
+
+<ol>
+<li><a href="#get-a-specific-schedule">Get</a> the schedule and read its stored <code>rrule</code>.</li>
+<li>POST that string to <code>/api/v2/rrules/decode</code>.</li>
+<li>Edit the returned <code>rule</code>.</li>
+<li>Map related resource objects from retrieve to their IDs.</li>
+<li><a href="#update-a-schedule">Update</a> the schedule with the complete representation, including the edited <code>rule</code>.</li>
+</ol>
+
+<p>The endpoint supports editor-representable forms handled by Lumiform&#39;s existing decoder. It is not a comprehensive RFC validator or canonicalizer.</p>
+
+<p>Malformed RRULE syntax and frequencies rejected by the existing decoder return a 422 validation error on <code>rrule</code> using <code>validation.rrule.invalid</code>.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>POST https://public-api.lumiformapp.com/api/v2/rrules/decode</code></p>
+<h3 id='request-body-parameters-2'>Request Body Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>rrule</td>
+<td>Yes</td>
+<td>String</td>
+<td>See above</td>
+<td>The stored recurrence string.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>A malformed RRULE or a frequency the decoder rejects returns:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api.validation.errors"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The given data was invalid."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"rrule"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"validation.rrule.invalid"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
       </div>
       <div class="dark-box">
           <div class="lang-selector">
