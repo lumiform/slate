@@ -5,6 +5,10 @@ fail with `validation.entityFolderSeatManagement.noFreeSeats`, reported on `user
 assignments exceed the remaining seats of a folder that carries a seat limit. See
 [Errors](#validation-errors).
 
+**Note:** Every entity item in a response has two IDs. `id` is the entity item ID used throughout the Public API, including
+in URLs and request bodies. `internal_id` is the ID Lumiform uses internally. Use `internal_id` only where Lumiform asks
+for an internal ID, for example in entity-prefilled form links. Never send `internal_id` to Public API endpoints.
+
 ## Get All Entity Items
 
 ```shell
@@ -32,6 +36,7 @@ curl --request GET \
   "data": [
     {
       "id": 1,
+      "internal_id": 73101,
       "title": "Safety checklist",
       "description": "This checklist is about safety",
       "entity_type": {
@@ -50,6 +55,7 @@ curl --request GET \
     },
     {
       "id": 2,
+      "internal_id": 73102,
       "title": "Cleaning checklist",
       "description": "This checklist is about cleaning facility",
       "entity_type": {
@@ -124,6 +130,7 @@ When `include_properties=true` is included in the query string, the response wil
   "data": [
     {
       "id": 1,
+      "internal_id": 73101,
       "title": "Safety checklist",
       "description": "This checklist is about safety",
       "entity_type": {
@@ -227,6 +234,7 @@ curl --request GET \
 {
   "data": {
     "id": 1,
+    "internal_id": 73101,
     "title": "Safety checklist",
     "description": "This checklist is about safety",
     "entity_type": {
@@ -252,6 +260,7 @@ curl --request GET \
 {
   "data": {
     "id": 1,
+    "internal_id": 73101,
     "title": "Safety checklist",
     "description": "This checklist is about safety",
     "entity_type": {
@@ -338,7 +347,8 @@ curl --request POST \
 
 ```json
 {
-  "id": 1
+  "id": 1,
+  "internal_id": 73101
 }
 ```
 

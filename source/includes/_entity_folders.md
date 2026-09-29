@@ -41,6 +41,7 @@ curl --request GET \
       "entity_items": [
         {
           "id": 1,
+          "internal_id": 73101,
           "title": "Entity item",
           "description": null
         }
@@ -79,6 +80,7 @@ curl --request GET \
       "entity_items": [
         {
           "id": 1,
+          "internal_id": 73101,
           "title": "Entity item",
           "description": null
         }
@@ -186,6 +188,7 @@ curl --request GET \
     "entity_items": [
       {
         "id": 1,
+        "internal_id": 73101,
         "title": "Entity item",
         "description": null
       }

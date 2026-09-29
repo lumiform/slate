@@ -147,6 +147,7 @@ curl --request GET \
     "form_templates": [
       {
         "id": 1018907909,
+        "internal_id": 50231,
         "title": "Safety checklist",
         "status": "active"
       }
@@ -169,6 +170,7 @@ curl --request GET \
       "entity_items": [
         {
           "id": 412578903,
+          "internal_id": 73101,
           "title": "Temple of Coruscant",
           "description": null
         }
@@ -222,10 +224,10 @@ Every [index](#get-all-schedules) field, plus:
 |------------------------------------|---------|------------------------------------------------------------------------------------------------------|
 | separate_todo_for_all_users        | Boolean | When `true`, each assignee receives a separate todo and inspection.                                  |
 | entity_item_specific_assignments   | Boolean | When `true`, assignments are specific to the selected entity items.                                  |
-| form_templates                     | Array   | Form templates on the schedule. Each object has `id`, `title`, and `status`.                         |
+| form_templates                     | Array   | Form templates on the schedule. Each object has `id`, `internal_id`, `title`, and `status`.          |
 | assignees.users                    | Array   | Assigned users (`id`, `name`, `email`, `admin`).                                                     |
 | assignees.groups                   | Array   | Assigned groups (`id`, `name`).                                                                      |
-| assignees.entity_items             | Array   | Assigned entity items (`id`, `title`, `description`).                                                |
+| assignees.entity_items             | Array   | Assigned entity items (`id`, `internal_id`, `title`, `description`).                                 |
 | assignees.all_entity_items         | Boolean | When `true`, the schedule applies to all entity items.                                               |
 | supervisors.users                  | Array   | Supervising users (`id`, `name`, `email`, `admin`).                                                  |
 | supervisors.groups                 | Array   | Supervising groups (`id`, `name`).                                                                   |
