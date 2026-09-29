@@ -50,6 +50,7 @@ curl --request GET \
       "issues": [],
       "checklist": {
         "id": 1,
+        "internal_id": 50231,
         "title": "Safety checklist",
         "status": "active"
       }
@@ -109,6 +110,7 @@ curl --request GET \
       ],
       "checklist": {
         "id": 2,
+        "internal_id": 50232,
         "title": "Materials checklist",
         "status": "active"
       }
@@ -225,6 +227,7 @@ curl --request GET \
     "issues": [],
     "checklist": {
       "id": 1,
+      "internal_id": 50231,
       "title": "Safety checklist",
       "status": "active"
     }

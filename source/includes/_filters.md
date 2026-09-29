@@ -109,16 +109,19 @@ curl --request GET \
   "data": [
     {
       "id": 1,
+      "internal_id": 50231,
       "title": "Safety form template",
       "status": "active"
     },
     {
       "id": 2,
+      "internal_id": 50232,
       "title": "Materials form template",
       "status": "active"
     },
     {
       "id": 3,
+      "internal_id": 50233,
       "title": "Kaminoan cloning tank form template",
       "status": "inactive"
     }
@@ -127,6 +130,10 @@ curl --request GET \
 ```
 
 This endpoint retrieves all form templates of your organization.
+
+Each form template has two IDs. `id` is the form template ID used throughout the Public API. `internal_id` is the ID
+Lumiform uses internally. Use `internal_id` only where Lumiform asks for an internal ID, for example in entity-prefilled
+form links. Never send `internal_id` to Public API endpoints.
 
 ### HTTP Request
 
@@ -153,16 +160,19 @@ curl --request GET \
   "data": [
     {
       "id": 1,
+      "internal_id": 50231,
       "title": "Safety checklist",
       "status": "active"
     },
     {
       "id": 2,
+      "internal_id": 50232,
       "title": "Materials checklist",
       "status": "active"
     },
     {
       "id": 3,
+      "internal_id": 50233,
       "title": "Kaminoan cloning tank checklist",
       "status": "inactive"
     }
