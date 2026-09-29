@@ -739,16 +739,19 @@ Site v1 endpoint is deprecated and will be discontinued in the future. Please re
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50231</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety form template"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50232</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Materials form template"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50233</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kaminoan cloning tank form template"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"inactive"</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -756,6 +759,10 @@ Site v1 endpoint is deprecated and will be discontinued in the future. Please re
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint retrieves all form templates of your organization.</p>
+
+<p>Each form template has two IDs. <code>id</code> is the form template ID used throughout the Public API. <code>internal_id</code> is the ID
+Lumiform uses internally. Use <code>internal_id</code> only where Lumiform asks for an internal ID, for example in entity-prefilled
+form links. Never send <code>internal_id</code> to Public API endpoints.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET https://public-api.lumiformapp.com/api/v2/filters/form-templates</code></p>
 <h2 id='get-all-checklists'>Get All Checklists</h2>
@@ -775,16 +782,19 @@ Inspection endpoints are deprecated and will be discontinued in the future. Plea
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50231</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50232</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Materials checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50233</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kaminoan cloning tank checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"inactive"</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -1038,6 +1048,7 @@ Inspection endpoints are deprecated and will be discontinued in the future. Plea
       </span><span class="nl">"issues"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
       </span><span class="nl">"checklist"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50231</span><span class="p">,</span><span class="w">
         </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
       </span><span class="p">},</span><span class="w">
@@ -1110,6 +1121,7 @@ Inspection endpoints are deprecated and will be discontinued in the future. Plea
       </span><span class="p">],</span><span class="w">
       </span><span class="nl">"checklist"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50232</span><span class="p">,</span><span class="w">
         </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Materials checklist"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
       </span><span class="p">},</span><span class="w">
@@ -1317,6 +1329,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
     </span><span class="nl">"issues"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
     </span><span class="nl">"checklist"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50231</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
     </span><span class="p">},</span><span class="w">
@@ -2175,6 +2188,7 @@ Inspection endpoints are deprecated and will be discontinued in the future. Plea
       </span><span class="nl">"issues"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
       </span><span class="nl">"checklist"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50231</span><span class="p">,</span><span class="w">
         </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -2234,6 +2248,7 @@ Inspection endpoints are deprecated and will be discontinued in the future. Plea
       </span><span class="p">],</span><span class="w">
       </span><span class="nl">"checklist"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50232</span><span class="p">,</span><span class="w">
         </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Materials checklist"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -2414,6 +2429,7 @@ Tip — you can combine <i>x_from</i> and <i>x_to</i> parameters to refine your 
     </span><span class="nl">"issues"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
     </span><span class="nl">"checklist"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50231</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -3480,6 +3496,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
       </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="p">,</span><span class="w">
           </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entity item"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="p">}</span><span class="w">
@@ -3518,6 +3535,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
       </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="p">,</span><span class="w">
           </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entity item"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="p">}</span><span class="w">
@@ -3647,6 +3665,7 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
     </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="p">,</span><span class="w">
         </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Entity item"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -4842,6 +4861,10 @@ assignments exceed the remaining seats of a folder that carries a seat limit. Se
 fail with <code>validation.entityFolderSeatManagement.noFreeSeats</code>, reported on <code>users</code>, when the resulting
 assignments exceed the remaining seats of a folder that carries a seat limit. See
 <a href="#validation-errors">Errors</a>.</p>
+
+<p><strong>Note:</strong> Every entity item in a response has two IDs. <code>id</code> is the entity item ID used throughout the Public API, including
+in URLs and request bodies. <code>internal_id</code> is the ID Lumiform uses internally. Use <code>internal_id</code> only where Lumiform asks
+for an internal ID, for example in entity-prefilled form links. Never send <code>internal_id</code> to Public API endpoints.</p>
 <h2 id='get-all-entity-items'>Get All Entity Items</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
@@ -4864,6 +4887,7 @@ assignments exceed the remaining seats of a folder that carries a seat limit. Se
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -4882,6 +4906,7 @@ assignments exceed the remaining seats of a folder that carries a seat limit. Se
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73102</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cleaning checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about cleaning facility"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -4951,6 +4976,7 @@ assignments exceed the remaining seats of a folder that carries a seat limit. Se
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="p">,</span><span class="w">
       </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -5088,6 +5114,7 @@ assignments exceed the remaining seats of a folder that carries a seat limit. Se
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="p">,</span><span class="w">
     </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -5112,6 +5139,7 @@ assignments exceed the remaining seats of a folder that carries a seat limit. Se
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="p">,</span><span class="w">
     </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This checklist is about safety"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"entity_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -5213,7 +5241,8 @@ assignments exceed the remaining seats of a folder that carries a seat limit. Se
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint creates an Entity Item.</p>
@@ -5946,6 +5975,7 @@ folder seat. When no seat is available in the folders the user can reach, the re
     </span><span class="nl">"form_templates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1018907909</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">50231</span><span class="p">,</span><span class="w">
         </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety checklist"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -5968,6 +5998,7 @@ folder seat. When no seat is available in the folders the user can reach, the re
       </span><span class="nl">"entity_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">412578903</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"internal_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">73101</span><span class="p">,</span><span class="w">
           </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temple of Coruscant"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
         </span><span class="p">}</span><span class="w">
@@ -6044,7 +6075,7 @@ folder seat. When no seat is available in the folders the user can reach, the re
 <tr>
 <td>form_templates</td>
 <td>Array</td>
-<td>Form templates on the schedule. Each object has <code>id</code>, <code>title</code>, and <code>status</code>.</td>
+<td>Form templates on the schedule. Each object has <code>id</code>, <code>internal_id</code>, <code>title</code>, and <code>status</code>.</td>
 </tr>
 <tr>
 <td>assignees.users</td>
@@ -6059,7 +6090,7 @@ folder seat. When no seat is available in the folders the user can reach, the re
 <tr>
 <td>assignees.entity_items</td>
 <td>Array</td>
-<td>Assigned entity items (<code>id</code>, <code>title</code>, <code>description</code>).</td>
+<td>Assigned entity items (<code>id</code>, <code>internal_id</code>, <code>title</code>, <code>description</code>).</td>
 </tr>
 <tr>
 <td>assignees.all_entity_items</td>
