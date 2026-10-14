@@ -494,9 +494,11 @@ curl --request PUT \
 
 > The above command does not return any data
 
-This endpoint fully replaces a schedule. PATCH is not supported. Use PUT and send the complete writable representation. The request body matches [Create a Schedule](#create-a-schedule), with one difference for reminders: `id` is optional. An existing reminder ID updates that reminder and must belong to the schedule being updated. Omitting `id` creates a reminder. Reminders left out of the array are removed.
+This endpoint fully replaces a schedule, except for `assignees` and `supervisors` (see below). PATCH is not supported. Use PUT and send the complete writable representation. The request body matches [Create a Schedule](#create-a-schedule), with one difference for reminders: `id` is optional. An existing reminder ID updates that reminder and must belong to the schedule being updated. Omitting `id` creates a reminder. Reminders left out of the array are removed.
 
 `form_templates: []` and `reminders: []` clear those collections. `timezone` is required. Do not send `rrule` or `status`.
+
+`assignees`, `supervisors` and their `users`, `groups` and `entity_items` lists: if you leave one out it is not changed; send an empty list (`[]`) or `null` to remove all. `form_templates` and `reminders` are still replaced in full.
 
 A schedule from another organization returns 403. An unknown or deleted schedule returns 404.
 

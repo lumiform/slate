@@ -406,6 +406,8 @@ curl --request PUT \
 
 This endpoint updates a specific Entity Item.
 
+If you leave out `users`, the assigned users are not changed. Send an empty list (`[]`) or `null` to remove all.
+
 ### HTTP Request
 
 `PUT https://public-api.lumiformapp.com/api/v2/entity-items/<EntityItemId>`

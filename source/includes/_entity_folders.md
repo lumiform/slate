@@ -266,12 +266,7 @@ This endpoint updates a specific Entity Folder.
 |----------------|----------|--------|---------|----------------------------------------|
 | EntityFolderId | Yes      | Number | 1       | The Id of the Entity Folder to update. |
 
-<aside class="warning">
-This endpoint is a <strong>full replace</strong>. Any of <code>users</code>, <code>entity_items</code>,
-<code>children</code> and <code>labels</code> that you omit is treated as an empty list, and everything
-in it is detached. To change only the title, <code>GET</code> the folder first and send the current arrays
-back with your change.
-</aside>
+If you leave out `users`, `entity_items`, `children` or `labels`, they are not changed. Send an empty list (`[]`) or `null` to remove all.
 
 **Note:** If your organization uses seat management, this request can fail with
 `validation.entityFolderSeatManagement.noFreeSeats` on `users` when the resulting assignments exceed the

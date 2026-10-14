@@ -170,6 +170,8 @@ curl --request PUT \
 
 This endpoint updates a specific group.
 
+If you leave out `users`, the group's members are not changed. Send an empty list (`[]`) or `null` to remove all members.
+
 ### HTTP Request
 
 `PUT https://public-api.lumiformapp.com/api/v2/groups/<GroupId>`
