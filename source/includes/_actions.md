@@ -213,6 +213,8 @@ curl --request PUT \
 
 This endpoint updates a specific action.
 
+If you leave out `assignees`, `due_at`, `site` or `description`, they are not changed. Send `[]` for `assignees`, or `null` for any of them, to clear it.
+
 ### HTTP Request
 
 `PUT https://public-api.lumiformapp.com/api/v2/actions/<ActionId>`
