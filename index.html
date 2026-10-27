@@ -1926,6 +1926,8 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </blockquote>
 
 <p>This endpoint updates a specific action.</p>
+
+<p>If you leave out <code>assignees</code>, <code>due_at</code>, <code>site</code> or <code>description</code>, they are not changed. Send <code>[]</code> for <code>assignees</code>, or <code>null</code> for any of them, to clear it.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>PUT https://public-api.lumiformapp.com/api/v2/actions/&lt;ActionId&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
@@ -3168,6 +3170,8 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </blockquote>
 
 <p>This endpoint updates a specific group.</p>
+
+<p>If you leave out <code>users</code>, the group&#39;s members are not changed. Send an empty list (<code>[]</code>) or <code>null</code> to remove all members.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>PUT https://public-api.lumiformapp.com/api/v2/groups/&lt;GroupId&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
@@ -3408,6 +3412,8 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 </blockquote>
 
 <p>This endpoint updates a specific site.</p>
+
+<p>If you leave out <code>users</code>, the assigned users are not changed. Send an empty list (<code>[]</code>) or <code>null</code> to remove all.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>PUT https://public-api.lumiformapp.com/api/v2/sites/&lt;SiteId&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
@@ -5354,6 +5360,8 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
 </blockquote>
 
 <p>This endpoint updates a specific Entity Item.</p>
+
+<p>If you leave out <code>users</code>, the assigned users are not changed. Send an empty list (<code>[]</code>) or <code>null</code> to remove all.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>PUT https://public-api.lumiformapp.com/api/v2/entity-items/&lt;EntityItemId&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
