@@ -1,10 +1,10 @@
 # Entity Items
 
 **Note:** If your organization uses seat management, create, update and delete requests on entity items can
-fail with `validation.entityFolderSeatManagement.noFreeSeats`, reported on `users`, when the resulting
+fail with `validation.entityFolderSeatManagement.noFreeSeats`, reported on `users` (not guaranteed when the request
+changes `entity_folders`; see [Entity Folder Errors](#entity-folder-errors)), when the resulting
 assignments exceed the remaining seats of a folder that carries a seat limit. See
-[Errors](#validation-errors). A request that changes `entity_folders` can also fail because of a folder seat limit;
-see [Entity Folder Errors](#entity-folder-errors).
+[Errors](#validation-errors).
 
 **Note:** Every entity item in a response has two IDs. `id` is the entity item ID used throughout the Public API, including
 in URLs and request bodies. `internal_id` is the ID Lumiform uses internally. Use `internal_id` only where Lumiform asks
@@ -419,8 +419,7 @@ A create or update request fails with a `422` when `entity_folders`:
 
 The field these errors are reported on is not guaranteed. Do not rely on it; correct `entity_folders` before retrying.
 
-If `entity_folders` is not an array, or one of its elements is not a number, the error is reported on `entity_folders`
-or on `entity_folders.<index>`, for example `entity_folders.0`.
+If `entity_folders` is not an array, or one of its elements is not a number, the request fails with a `422` for `entity_folders`.
 
 ## Update an Entity Item
 
