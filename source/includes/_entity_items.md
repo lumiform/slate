@@ -3,7 +3,8 @@
 **Note:** If your organization uses seat management, create, update and delete requests on entity items can
 fail with `validation.entityFolderSeatManagement.noFreeSeats`, reported on `users`, when the resulting
 assignments exceed the remaining seats of a folder that carries a seat limit. See
-[Errors](#validation-errors).
+[Errors](#validation-errors). A request that changes `entity_folders` can also fail because of a folder seat limit;
+see [Entity Folder Errors](#entity-folder-errors).
 
 **Note:** Every entity item in a response has two IDs. `id` is the entity item ID used throughout the Public API, including
 in URLs and request bodies. `internal_id` is the ID Lumiform uses internally. Use `internal_id` only where Lumiform asks
@@ -249,6 +250,12 @@ curl --request GET \
         "email": "john.doe@lumiformapp.com",
         "admin": 0
       }
+    ],
+    "entity_folders": [
+      {
+        "id": 3,
+        "title": "Safety folder"
+      }
     ]
   }
 }
@@ -274,6 +281,12 @@ curl --request GET \
         "name": "John Doe",
         "email": "john.doe@lumiformapp.com",
         "admin": 0
+      }
+    ],
+    "entity_folders": [
+      {
+        "id": 3,
+        "title": "Safety folder"
       }
     ],
     "properties": [
@@ -304,6 +317,8 @@ curl --request GET \
 ```
 
 This endpoint retrieves a specific Entity Item. By default, property values are not included in the response. To include them, use the `include_properties=true` query parameter.
+
+The response includes `entity_folders`, the entity folders this entity item is in. Each folder has its `id` and `title`. Deleted folders are not listed. `entity_folders` is returned only by this endpoint, not by [Get All Entity Items](#get-all-entity-items).
 
 ### HTTP Request
 
@@ -343,6 +358,17 @@ curl --request POST \
   --data '{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1,"properties":[{"entityTypePropertyId":5,"valueText":"Some text value"},{"entityTypePropertyId":6,"optionValueIds":[10,11]}]}'
 ```
 
+> To create an entity item in entity folders, include the `entity_folders` array:
+
+```shell
+curl --request POST \
+  --url 'https://public-api.lumiformapp.com/api/v2/entity-items' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1,"entity_folders":[3,4]}'
+```
+
 > The above command returns JSON structured like this:
 
 ```json
@@ -353,6 +379,8 @@ curl --request POST \
 ```
 
 This endpoint creates an Entity Item.
+
+If you leave out `entity_folders`, or send an empty list (`[]`) or `null`, the entity item is not put in any folder.
 
 ### HTTP Request
 
@@ -366,6 +394,7 @@ This endpoint creates an Entity Item.
 | description | No | String | "Some description" | The description of the entity item. |
 | entity_type_id | Yes | Number | 1 | The ID of the entity type this item belongs to. |
 | users | No | Array | [1, 2, 3] | Array of user IDs assigned to this entity item. |
+| entity_folders | No | Array | [3, 4] | Array of entity folder IDs to put this entity item in. Use the `id` returned by the [Entity Folders](#entity-folders) endpoints. Can be `null`. |
 | properties | No | Array | See below | Array of property values to set for this entity item. |
 
 **Properties Array Structure:**
@@ -379,6 +408,19 @@ Each property object in the `properties` array should contain:
 | optionValueIds | No | Array | [10, 11] | Array of option value IDs for dropdown-type properties. Use this for properties with `data_type: "dropdown"`. |
 
 **Note:** For text properties, provide `valueText`. For dropdown properties, provide `optionValueIds`. You should not provide both for the same property.
+
+### Entity Folder Errors
+
+A create or update request fails with a `422` when `entity_folders`:
+
+- contains an ID of a folder that does not exist, belongs to another organization, or has been deleted;
+- contains the same ID more than once;
+- would put the entity item in a folder whose seat limit is reached (only when your organization uses seat management).
+
+The field these errors are reported on is not guaranteed. Do not rely on it; correct `entity_folders` before retrying.
+
+If `entity_folders` is not an array, or one of its elements is not a number, the error is reported on `entity_folders`
+or on `entity_folders.<index>`, for example `entity_folders.0`.
 
 ## Update an Entity Item
 
@@ -402,11 +444,24 @@ curl --request PUT \
   --data '{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1,"properties":[{"entityTypePropertyId":5,"valueText":"Updated text value"},{"entityTypePropertyId":6,"optionValueIds":[10,11]}]}'
 ```
 
+> To change the entity folders of an entity item, include the `entity_folders` array:
+
+```shell
+curl --request PUT \
+  --url 'https://public-api.lumiformapp.com/api/v2/entity-items/1' \
+  --header 'Authorization: Bearer [your token here]' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{"title":"Tatooine","description":"Some description","entity_type_id":1,"entity_folders":[3,4]}'
+```
+
 > The above command does not return any data
 
 This endpoint updates a specific Entity Item.
 
 If you leave out `users`, the assigned users are not changed. Send an empty list (`[]`) or `null` to remove all.
+
+If you leave out `entity_folders`, the entity item's folders are not changed. Send a list of folder IDs to replace them, or an empty list (`[]`) or `null` to remove the entity item from all folders. See [Entity Folder Errors](#entity-folder-errors) for the errors this field can return.
 
 ### HTTP Request
 
@@ -426,6 +481,7 @@ If you leave out `users`, the assigned users are not changed. Send an empty list
 | description | No | String | "Some description" | The description of the entity item. |
 | entity_type_id | Yes | Number | 1 | The ID of the entity type this item belongs to. |
 | users | No | Array | [1, 2, 3] | Array of user IDs assigned to this entity item. |
+| entity_folders | No | Array | [3, 4] | Array of entity folder IDs this entity item is in. Replaces the current folders. Use the `id` returned by the [Entity Folders](#entity-folders) endpoints. Can be `null`. |
 | properties | No | Array | See below | Array of property values to set for this entity item. |
 
 **Properties Array Structure:**
