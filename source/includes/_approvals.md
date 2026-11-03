@@ -55,18 +55,6 @@ The response describes the approval's current state (`status`, `comment`, `appro
 
 A form can have more than one approval over its lifetime. Each webhook carries the ID of the approval that was approved, and this endpoint reports that approval's own status.
 
-| Field      | Type           | Description                                                                                                                                                                         |
-|------------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id         | Number         | The ID of the approval.                                                                                                                                                             |
-| status     | Text           | The current status of the approval. **Allowed values:** *pending*, *approved*, *rejected*, *changes_requested*.                                                                     |
-| comment    | Text or null   | The approval comment.                                                                                                                                                               |
-| approver   | Object or null | The user who last acted on the approval: changed or reset its status, or edited the form. `null` when no user did, or when that user was deleted.                                  |
-| updated_at | Unix time      | When the approval was last updated.                                                                                                                                                 |
-| form_id    | Number or null | The ID of the form the approval belongs to. Use it directly on [Get a Specific Form](#get-a-specific-form) (`GET /v2/forms/{id}`). `null` for approvals on actions.               |
-| action_id  | Number or null | The ID of the action the approval belongs to. Use it directly on [Get a Specific Action](#get-a-specific-action) (`GET /v2/actions/{id}`). `null` for approvals on forms.         |
-
-Both `form_id` and `action_id` are always present, and exactly one of them is not `null`. For approvals on actions, `action_id` is set and `form_id` is `null`.
-
 ### HTTP Request
 
 `GET https://public-api.lumiformapp.com/api/v2/approvals/<ApprovalId>`
@@ -80,3 +68,17 @@ Both `form_id` and `action_id` are always present, and exactly one of them is no
 <aside class="notice">
 An approval from another organization returns <code>403</code>. An unknown or deleted approval returns <code>404</code>. For an ID from a webhook, a <code>404</code> is final: the approval was deleted, for example together with its form.
 </aside>
+
+### Response Fields
+
+| Field      | Type           | Description                                                                                                                                                                         |
+|------------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id         | Number         | The ID of the approval.                                                                                                                                                             |
+| status     | Text           | The current status of the approval. **Allowed values:** *pending*, *approved*, *rejected*, *changes_requested*.                                                                     |
+| comment    | Text or null   | The approval comment.                                                                                                                                                               |
+| approver   | Object or null | The user who last acted on the approval: changed or reset its status, or edited the form. `null` when no user did, or when that user was deleted.                                  |
+| updated_at | Unix time      | When the approval was last updated.                                                                                                                                                 |
+| form_id    | Number or null | The ID of the form the approval belongs to. Use it directly on [Get a Specific Form](#get-a-specific-form) (`GET /v2/forms/{id}`). `null` for approvals on actions.               |
+| action_id  | Number or null | The ID of the action the approval belongs to. Use it directly on [Get a Specific Action](#get-a-specific-action) (`GET /v2/actions/{id}`). `null` for approvals on forms.         |
+
+Both `form_id` and `action_id` are always present, and exactly one of them is not `null`. For approvals on actions, `action_id` is set and `form_id` is `null`.
