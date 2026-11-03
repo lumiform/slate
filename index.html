@@ -2066,7 +2066,7 @@ writes that change who can reach that folder are checked against the capacity of
 </tr>
 <tr>
 <td><code>validation.entityFolderSeatManagement.noFreeSeats</code></td>
-<td><code>users</code>, or <code>role</code> on user writes</td>
+<td><code>users</code>, or <code>role</code> on user writes; not guaranteed on entity item writes that change <code>entity_folders</code></td>
 <td>The resulting assignments cannot all be charged against the folder&#39;s remaining seats. Assign fewer users, or free a seat by removing someone else, or raise the limit in the web app.</td>
 </tr>
 <tr>
@@ -4864,7 +4864,8 @@ assignments exceed the remaining seats of a folder that carries a seat limit. Se
 </tbody></table>
 <h1 id='entity-items'>Entity Items</h1>
 <p><strong>Note:</strong> If your organization uses seat management, create, update and delete requests on entity items can
-fail with <code>validation.entityFolderSeatManagement.noFreeSeats</code>, reported on <code>users</code>, when the resulting
+fail with <code>validation.entityFolderSeatManagement.noFreeSeats</code>, reported on <code>users</code> (not guaranteed when the request
+changes <code>entity_folders</code>; see <a href="#entity-folder-errors">Entity Folder Errors</a>), when the resulting
 assignments exceed the remaining seats of a folder that carries a seat limit. See
 <a href="#validation-errors">Errors</a>.</p>
 
@@ -5135,6 +5136,12 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
         </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@lumiformapp.com"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
       </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"entity_folders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety folder"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -5159,6 +5166,12 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
         </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@lumiformapp.com"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"entity_folders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Safety folder"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -5188,6 +5201,8 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint retrieves a specific Entity Item. By default, property values are not included in the response. To include them, use the <code>include_properties=true</code> query parameter.</p>
+
+<p>The response includes <code>entity_folders</code>, the entity folders this entity item is in. Each folder has its <code>id</code> and <code>title</code>. Deleted folders are not listed. <code>entity_folders</code> is returned only by this endpoint, not by <a href="#get-all-entity-items">Get All Entity Items</a>.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://public-api.lumiformapp.com/api/v2/entity-items/&lt;EntityItemId&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
@@ -5244,6 +5259,16 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
   <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1,"properties":[{"entityTypePropertyId":5,"valueText":"Some text value"},{"entityTypePropertyId":6,"optionValueIds":[10,11]}]}'</span>
 </code></pre></div>
 <blockquote>
+<p>To create an entity item in entity folders, include the <code>entity_folders</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> POST <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1,"entity_folders":[3,4]}'</span>
+</code></pre></div>
+<blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -5252,6 +5277,8 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint creates an Entity Item.</p>
+
+<p>If you leave out <code>entity_folders</code>, or send an empty list (<code>[]</code>) or <code>null</code>, the entity item is not put in any folder.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>POST https://public-api.lumiformapp.com/api/v2/entity-items</code></p>
 <h3 id='request-body-parameters'>Request Body Parameters</h3>
@@ -5291,6 +5318,13 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
 <td>Array</td>
 <td>[1, 2, 3]</td>
 <td>Array of user IDs assigned to this entity item.</td>
+</tr>
+<tr>
+<td>entity_folders</td>
+<td>No</td>
+<td>Array</td>
+<td>[3, 4]</td>
+<td>Array of entity folder IDs to put this entity item in. Use the <code>id</code> returned by the <a href="#entity-folders">Entity Folders</a> endpoints. Can be <code>null</code>.</td>
 </tr>
 <tr>
 <td>properties</td>
@@ -5338,6 +5372,18 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
 </tbody></table>
 
 <p><strong>Note:</strong> For text properties, provide <code>valueText</code>. For dropdown properties, provide <code>optionValueIds</code>. You should not provide both for the same property.</p>
+<h3 id='entity-folder-errors'>Entity Folder Errors</h3>
+<p>A create or update request fails with a <code>422</code> when <code>entity_folders</code>:</p>
+
+<ul>
+<li>contains an ID of a folder that does not exist, belongs to another organization, or has been deleted;</li>
+<li>contains the same ID more than once;</li>
+<li>would put the entity item in a folder whose seat limit is reached (only when your organization uses seat management).</li>
+</ul>
+
+<p>The field these errors are reported on is not guaranteed. Do not rely on it; correct <code>entity_folders</code> before retrying.</p>
+
+<p>If <code>entity_folders</code> is not an array, or one of its elements is not a number, the request fails with a <code>422</code> for <code>entity_folders</code>.</p>
 <h2 id='update-an-entity-item'>Update an Entity Item</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
   <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
   <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
@@ -5356,12 +5402,24 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
   <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","users":[1],"entity_type_id":1,"properties":[{"entityTypePropertyId":5,"valueText":"Updated text value"},{"entityTypePropertyId":6,"optionValueIds":[10,11]}]}'</span>
 </code></pre></div>
 <blockquote>
+<p>To change the entity folders of an entity item, include the <code>entity_folders</code> array:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> PUT <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/entity-items/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  <span class="nt">--data</span> <span class="s1">'{"title":"Tatooine","description":"Some description","entity_type_id":1,"entity_folders":[3,4]}'</span>
+</code></pre></div>
+<blockquote>
 <p>The above command does not return any data</p>
 </blockquote>
 
 <p>This endpoint updates a specific Entity Item.</p>
 
 <p>If you leave out <code>users</code>, the assigned users are not changed. Send an empty list (<code>[]</code>) or <code>null</code> to remove all.</p>
+
+<p>If you leave out <code>entity_folders</code>, the entity item&#39;s folders are not changed. Send a list of folder IDs to replace them, or an empty list (<code>[]</code>) or <code>null</code> to remove the entity item from all folders. See <a href="#entity-folder-errors">Entity Folder Errors</a> for the errors this field can return.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
 <p><code>PUT https://public-api.lumiformapp.com/api/v2/entity-items/&lt;EntityItemId&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
@@ -5419,6 +5477,13 @@ for an internal ID, for example in entity-prefilled form links. Never send <code
 <td>Array</td>
 <td>[1, 2, 3]</td>
 <td>Array of user IDs assigned to this entity item.</td>
+</tr>
+<tr>
+<td>entity_folders</td>
+<td>No</td>
+<td>Array</td>
+<td>[3, 4]</td>
+<td>Array of entity folder IDs this entity item is in. Replaces the current folders. Use the <code>id</code> returned by the <a href="#entity-folders">Entity Folders</a> endpoints. Can be <code>null</code>.</td>
 </tr>
 <tr>
 <td>properties</td>
