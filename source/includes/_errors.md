@@ -48,7 +48,7 @@ Code | Field | Meaning
 ---- | ----- | -------
 `validation.entityFolderSeatManagement.exceedsChildAllocation` | `seatLimit` | The seat limit is higher than the parent's remaining allocation allows. Lower the limit, or free capacity elsewhere.
 `validation.entityFolderSeatManagement.belowChargedUsers` | `seatLimit` | The seat limit is below the number of users already charged to the folder. Raise the limit, or free seats first.
-`validation.entityFolderSeatManagement.noFreeSeats` | `users`, or `role` on user writes | The resulting assignments cannot all be charged against the folder's remaining seats. Assign fewer users, or free a seat by removing someone else, or raise the limit in the web app.
+`validation.entityFolderSeatManagement.noFreeSeats` | `users`, or `role` on user writes; not guaranteed on entity item writes that change `entity_folders` | The resulting assignments cannot all be charged against the folder's remaining seats. Assign fewer users, or free a seat by removing someone else, or raise the limit in the web app.
 `validation.entityFolderSeatManagement.limitedFolderCannotBeNested` | `children` | A folder that carries a seat limit cannot become a child of another folder. Remove the limit in the web app first, then nest it.
 
 > `exceedsChildAllocation`:
