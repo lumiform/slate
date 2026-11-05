@@ -380,6 +380,14 @@
               </ul>
           </li>
           <li>
+            <a href="#approvals" class="toc-h1 toc-link" data-title="Approvals">Approvals</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-a-specific-approval" class="toc-h2 toc-link" data-title="Get a Specific Approval">Get a Specific Approval</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
               <ul class="toc-list-h2">
                   <li>
@@ -1979,6 +1987,124 @@ Tip — the <i>title</i> field is somewhat permissive, so you can try fuzzy matc
 <td>The ID of the action to delete.</td>
 </tr>
 </tbody></table>
+<h1 id='approvals'>Approvals</h1><h2 id='get-a-specific-approval'>Get a Specific Approval</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> <span class="s1">'https://public-api.lumiformapp.com/api/v2/approvals/1'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: Bearer [your token here]'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Accept: application/json'</span> <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span>
+</code></pre></div>
+<blockquote>
+<p>For an approval on a form, the above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"approved"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my comment"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"approver"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jeff Hanneman"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jeff.hanneman@slayer.net"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1748878859</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"form_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"action_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>For an approval on an action, it returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">31</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"approver"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1748878900</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"form_id"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"action_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">57</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific approval. It uses the standard Bearer token, like every other endpoint.</p>
+
+<p>The <code>model_id</code> of the <code>inspection_approved</code> webhook is the approval ID. Use this endpoint to find the form behind a webhook. This endpoint, not <code>approval.id</code> on a form, is the source of truth for the approval behind a webhook ID.</p>
+
+<p>The response describes the approval&#39;s current state (<code>status</code>, <code>comment</code>, <code>approver</code> and <code>updated_at</code>), not its state when the webhook was sent. The state can change after the webhook, including back to <code>pending</code> (with <code>comment</code> cleared) when the form is edited or the approval is reset in the web app. The same approval ID can be delivered more than once, so always read the current status from this endpoint.</p>
+
+<p>A form can have more than one approval over its lifetime. Each webhook carries the ID of the approval that was approved, and this endpoint reports that approval&#39;s own status.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://public-api.lumiformapp.com/api/v2/approvals/&lt;ApprovalId&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ApprovalId</td>
+<td>Yes</td>
+<td>Number</td>
+<td>1</td>
+<td>The ID of the approval to retrieve.</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+An approval from another organization returns <code>403</code>. An unknown or deleted approval returns <code>404</code>. For an ID from a webhook, a <code>404</code> is final: the approval was deleted, for example together with its form.
+</aside>
+<h3 id='response-fields'>Response Fields</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Number</td>
+<td>The ID of the approval.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>Text</td>
+<td>The current status of the approval. <strong>Allowed values:</strong> <em>pending</em>, <em>approved</em>, <em>rejected</em>, <em>changes_requested</em>.</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>Text or null</td>
+<td>The approval comment.</td>
+</tr>
+<tr>
+<td>approver</td>
+<td>Object or null</td>
+<td>The user who last acted on the approval: changed or reset its status, or edited the form. <code>null</code> when no user did, or when that user was deleted.</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>Unix time</td>
+<td>When the approval was last updated.</td>
+</tr>
+<tr>
+<td>form_id</td>
+<td>Number or null</td>
+<td>The ID of the form the approval belongs to. Use it directly on <a href="#get-a-specific-form">Get a Specific Form</a> (<code>GET /v2/forms/{id}</code>). <code>null</code> for approvals on actions.</td>
+</tr>
+<tr>
+<td>action_id</td>
+<td>Number or null</td>
+<td>The ID of the action the approval belongs to. Use it directly on <a href="#get-a-specific-action">Get a Specific Action</a> (<code>GET /v2/actions/{id}</code>). <code>null</code> for approvals on forms.</td>
+</tr>
+</tbody></table>
+
+<p>Both <code>form_id</code> and <code>action_id</code> are always present, and exactly one of them is not <code>null</code>. For approvals on actions, <code>action_id</code> is set and <code>form_id</code> is <code>null</code>.</p>
 <h1 id='errors'>Errors</h1>
 <p>The Lumiform Public API uses the following error codes:</p>
 
