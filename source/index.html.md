@@ -13,6 +13,7 @@ includes:
   - roles
   - forms
   - actions
+  - approvals
   - errors
   - inspections
   - issues
